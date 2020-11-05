@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Sleeping with one eye open: Experiences with production support"
-date:   2020-11-05 09:16:16 +0000
+date:   2020-11-05 00:00:00 +0000
 categories: Soft skills
 ---
 
