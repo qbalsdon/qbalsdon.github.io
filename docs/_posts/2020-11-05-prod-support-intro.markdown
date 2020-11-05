@@ -13,7 +13,7 @@ I remember being one of the 30 million customers affected by the [O2 certificate
 
 I am going to divide the discussion into a series of parts:
 
-Put on the right hat: Assuming the role of a support engineer
+ 1. Put on the right hat: Assuming the role of a support engineer
  1. Ask questions: Getting to know the problem
  1. Have your tools ready: Being ready for analysis
  1. Trust your team: Code reviews, quality assurance and best practice are your friends
