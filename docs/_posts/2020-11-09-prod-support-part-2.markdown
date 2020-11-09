@@ -19,7 +19,7 @@ It can be difficult for users to know what the real issue could be in any given 
 When I first started getting called out, I put all the weight of discovering the issue on my shoulders. I would hastily try to point the finger at some service to get it fixed as soon as possible. I was so afraid of reputational damage from being down 1 more second that I would be clamouring to find the issue. The problem with this approach is it's like throwing all the darts at a dart board without aiming. You lack both precision and accuracy.
 
 ![alt text][SKETCH]
-[(c) Sketchplanations][PRECISION]
+[&copy; Sketchplanations][PRECISION]
 
 What I have found helpful is to talk to the team as I make discoveries about systems that may be problematic. I ask questions in the hopes of guiding a conversation. For example: *"I have noticed system A is doing garbage collection every 10 minutes, and during the collection that is when our users are experiencing lag - could that be causing the problem?"* This goes a long way in terms of being helpful and not diverting everyone's attention all the time.
 
