@@ -20,7 +20,7 @@ In ["Thinking, Fast and Slow"][TFS], Daniel Kahneman introduces readers to the [
 
 I care about my code and I care about the particular features that I write. No matter how many call-outs there were I have always found myself checking my Android features first, even though over 60% of our customer base were using iOS, and I needed to remember there was also desktop and web solutions. Generally when encountering an issue it's better to be agnostic and try to view all systems equally so they aren't overlooked.
 
-As someone looking after the front end, we were the first group to be alerted when there was an issue. However just because there is a problem being reported on the front end doesn't mean that the front end is the _**root cause**_ of the issue. It is really pertinent that as a support engineer you stay focussed on the diagnosis of the issue. More on this in the next post about [Asking questions][PART3].
+As someone looking after the front end, we were the first group to be alerted when there was an issue. However just because there is a problem being reported on the front end doesn't mean that the front end is the _**root cause**_ of the issue. It is really pertinent that as a support engineer you stay focussed on the diagnosis of the issue. More on this in the next post about [Part 2: Asking questions][PART2].
 
 Usually on the team we would have two engineers assigned to support. We called these roles primary and secondary. Primary was the person on most high alert, and if they became unavailable or overwhelmed, the secondary would get called out. These roles were really helpful when bigger call-outs happened. After that we could escalate to management if there was something we felt was beyond our control or we needed to make changes in the availability of the application features.
 
@@ -33,5 +33,5 @@ Having clearly defined roles is critical when supporting software, just as much 
 [TFS]: https://www.amazon.co.uk/Thinking-Fast-Slow-Daniel-Kahneman/dp/0141033576
 [SOCS]: https://shelleybablitz.focalpointcoaching.com/blogs/solve-problems-with-the-socs-model
 [HSM]: https://en.wikipedia.org/wiki/Hardware_security_module
-[PART3]: https://qbalsdon.github.io/
+[PART2]: https://qbalsdon.github.io/soft/skills/2020/11/09/prod-support-part-2.html
 [PART4]: https://qbalsdon.github.io/

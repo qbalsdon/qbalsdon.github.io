@@ -26,7 +26,7 @@ I am going to divide the discussion into a series of parts:
 [monzo-success]: https://econsultancy.com/monzo-outage-is-it-possible-to-fail-in-a-good-way/
 [PART1]: https://qbalsdon.github.io/soft/skills/2020/11/06/prod-support-part-1.html
 [PART2]: https://qbalsdon.github.io/soft/skills/2020/11/09/prod-support-part-2.html
-[PART3]: https://qbalsdon.github.io/
+[PART3]: https://qbalsdon.github.io/soft/skills/2020/11/10/prod-support-part-3.html
 [PART4]: https://qbalsdon.github.io/
 [PART5]: https://qbalsdon.github.io/
 [PART6]: https://qbalsdon.github.io/
