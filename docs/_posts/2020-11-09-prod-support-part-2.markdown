@@ -1,9 +1,13 @@
 ---
 layout: post
 title:  "Experiences with production support, Part 2: Ask questions"
-date:   2020-11-05 00:00:02 +0000
+date:   2020-11-09 00:00:02 +0000
 categories: Soft skills
 ---
+
+ > "One of the first things taught in introductory statistics textbooks is that correlation is not causation. It is also one of the first things forgotten. - [Thomas Sowell][CAUSE]"
+
+If you come out sounding like an expert on something and it turns out you're wrong, it's very difficult to come back. Reputational damage can only be undone over a long period of time.
 
 What does a term mean? Admit when you don't understand
 
@@ -40,3 +44,5 @@ Determine the impact: To customers and to the business
 Asking questions can also help when attempting to suggest the cause of an issue. I have found that rather than making blanket statements, but asking questions, helps guides conversations.
 
  > There is a big difference between stating "The payments is failing" and asking "I see that our users are getting 401 errors when trying to make a payment, could it be that sessions are being expired prematurely?"
+
+ [CAUSE]: https://www.quotemaster.org/q0695e82f492f6f87510558b1e9bda9a9
