@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Experiences with production support, Part 6: Reflections"
-date:   2020-11-05 00:00:06 +0000
+date:   2025-11-05 00:00:06 +0000
 categories: Soft skills
+comments_id: 7
 ---
 
 Automation?

@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Experiences with production support, Part 4: Trust the team"
-date:   2020-11-05 00:00:04 +0000
+date:   2025-11-05 00:00:04 +0000
 categories: Soft skills
+comments_id: 5
 ---
 
 Making production changes alone is not a good idea. There is a reason we have code reviews, QA testing, release management. Bypassing these processes, especially during a production incident, is a bad idea<
