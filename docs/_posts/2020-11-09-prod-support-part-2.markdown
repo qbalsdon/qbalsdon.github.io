@@ -3,6 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 2: Ask questions"
 date:   2020-11-09 00:00:02 +0000
 categories: Soft skills
+comments_id: 3
 ---
 
 ### Starting at the beginning

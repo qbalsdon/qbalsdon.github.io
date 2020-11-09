@@ -3,6 +3,7 @@ layout: post
 title:  "Sleeping with one eye open: Experiences with production support"
 date:   2020-11-05 00:00:00 +0000
 categories: Soft skills
+comments_id: 1
 ---
 
  > You wake up and two phones, your iPad and watch are ringing. It's 2am and you see there are messages on all the devices and eventually you become conscious enough to realise something is wrong. You roll out of bed, answer the work phone, and realise you've been called to assist in a live production issue. What now? Now, it's time to shine.
@@ -13,12 +14,12 @@ I remember being one of the 30 million customers affected by the [O2 certificate
 
 I am going to divide the discussion into a series of parts:
 
- [1. Put on the right hat: Assuming the role of a support engineer][PART1]
- [1. Ask questions: Getting to know the problem][PART2]
- [1. Have your tools ready: Being ready for analysis][PART3]
- [1. Trust your team: Code reviews, quality assurance and best practice are your friends][PART4]
- [1. Take downtime: Ensure you recover][PART5]
- [1. Reflections: What does the ideal production support structure look like?][PART6]
+ 1. [Put on the right hat: Assuming the role of a support engineer][PART1]
+ 1. [Ask questions: Getting to know the problem][PART2]
+ 1. [Have your tools ready: Being ready for analysis][PART3]
+ 1. [Trust your team: Code reviews, quality assurance and best practice are your friends][PART4]
+ 1. [Take downtime: Ensure you recover][PART5]
+ 1. [Reflections: What does the ideal production support structure look like?][PART6]
 
 [o2-outage]: https://www.theguardian.com/business/2018/dec/06/o2-customers-unable-to-get-online
 [tsb-meltdown]: https://www.theguardian.com/business/2018/jun/06/timeline-of-trouble-how-the-tsb-it-meltdown-unfolded

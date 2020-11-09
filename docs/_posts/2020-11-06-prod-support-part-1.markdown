@@ -3,6 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 1: Put on the right hat"
 date:   2020-11-06 00:00:00 +0000
 categories: Soft skills
+comments_id: 2
 ---
 
 Obviously when you get called out in the middle of the night no one cares what you are wearing, as long as you are wearing something. The idea is make sure you are not trying the perform the role or follow the agenda you may have whilst going about your day-to-day.
