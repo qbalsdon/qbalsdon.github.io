@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "Experiences with production support, Part 4: Trust the team"
+date:   2020-11-10 00:00:04 +0000
+categories: Soft skills
+comments_id: 5
+---
+> In my first mobile development job I had just released an app on the store. The trolls managed to find a spelling mistake and I was absolutely horrified. I waited days to be given the go-ahead to publish an update to the store, and eventually my lack of patience got the best of me. I released a fix without approval. After I realised I had actively betrayed the trust of my company and the client, I felt absolutely terrible.
+
+One the most important aspects of software development is that it's not a lone operation. Everyone has a stake in making great applications for users. When you work alone you take a great risk on everyone's behalf and if you make a mistake, you will suffer reputational damage that will be very difficult to regain. Leave the superheros in the comic books and movies, rather make changes that everyone has had time to confirm are the right changes.
+
+ > Once I had to drive out to my office to make an emergency fix. The CEO, QA's and release managers all encouraged me to publish the updated app to the store. It was really difficult to refuse, they were all literally standing over me. But it was the one of the best decisions I have ever made. A code review revealed I had missed an important element that could have cause a crash in another area of the application. Even the QA had missed it due to fatigue.
+
+There is a reason your organisation has a [release cycle][RELEASECYCLE]: to ensure what the end user receives on their device is software that meets a certain level of quality. Once you're done diagnosing the problem it's very easy to attempt to fix it as soon as possible. This is admirable, but you need to [remember your role on a call out][PART1]. Even if you can make a fix, it needs to go through appropriate release channels.
+
+ > One a particular 3am call out, there was an issue with Android and the operator knew I was an Android engineer. They insisted that the problem get fixed right away. I informed them that at the time we had no mechanism for isolating users on the Android platform for that journey, if we needed to turn it off we'd essentially have to take the whole app offline if something went wrong. I had to tell them that we would have to wait for the next day to get the team involved. Other team members on the call confirmed my approach.
+
+As software engineers I think we become accustom to be dissatisfied with "leaving a problem." We want to know that a solution is coming, sometimes we want to be the hero, we can't sleep if something is not at least solved in theory. This is good, but it's not advisable to take risks with your reputation, or that of the organisation.
+
+[PART1]: https://qbalsdon.github.io/soft/skills/2020/11/06/prod-support-part-1.html
+[RELEASECYCLE]: https://en.wikipedia.org/wiki/Software_release_life_cycle#:~:text=A%20software%20release%20life%20cycle,still%20present%20in%20the%20software.
