@@ -3,7 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 6: Reflections"
 date:   2020-11-11 00:00:06 +0000
 categories: Soft skills
-comments_id: 7
+comments_id: 8
 ---
 
 What would I have changed in the last few years of production support? Short answer: a lot.
@@ -36,4 +36,4 @@ I know this is going into branching management, and this is religious ground for
 
 ### Conclusion
 
-I hope that I have achieved my goal: sharing my ideas and experiences in a manner that is helpful to the reader. Supporting live software is not an easy task, and the burden grows with the user base. The network effect is a phenomena I find more and more interesting. If you need to do production support it means your application is truly alive and even potentially vital. 
+I hope that I have achieved my goal: sharing my ideas and experiences in a manner that is helpful to the reader. Supporting live software is not an easy task, and the burden grows with the user base. The network effect is a phenomena I find more and more interesting. If you need to do production support it means your application is truly alive and even potentially vital.

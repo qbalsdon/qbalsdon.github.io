@@ -3,7 +3,7 @@ layout: post
 title:  "YACB: Yet Another Coroutine Blog"
 date:   2020-11-11 00:00:10 +0000
 categories: TL;DR, Android, Kotlin, Coroutines, Programming
-comments_id: 7
+comments_id: 9
 ---
 
 Ever since [coroutines][CROUTINE] were introduced I have been long suffered to read up about them. Whenever I do there always seems to be something in the way. It all seems complicated and long winded. I know we need asynchronous requests, I know threading is a thing. I'm tired of reading articles that defend threading, just show me how to coroutine.

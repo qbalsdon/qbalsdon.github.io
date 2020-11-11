@@ -3,7 +3,7 @@ layout: post
 title:  "Sleeping with one eye open: Experiences with production support"
 date:   2020-11-05 00:00:00 +0000
 categories: Soft skills
-comments_id: 1
+comments_id: 2
 ---
 
  > You wake up and two phones, your iPad and watch are ringing. It's 2am and you see there are messages on all the devices and eventually you become conscious enough to realise something is wrong. You roll out of bed, answer the work phone, and realise you've been called to assist in a live production issue. What now? Now, it's time to shine.

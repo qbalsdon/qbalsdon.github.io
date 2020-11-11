@@ -3,7 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 5: Take downtime"
 date:   2020-11-11 00:00:05 +0000
 categories: Soft skills
-comments_id: 6
+comments_id: 7
 ---
 
 > There was a period where I spent two consecutive weeks on support. I wasn't primary every day but the sense of looming disaster followed me. Even though I never got called out I felt like I was walking on egg shells every minute.

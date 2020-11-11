@@ -3,7 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 3: Have your tools ready"
 date:   2020-11-10 00:00:03 +0000
 categories: Soft skills
-comments_id: 4
+comments_id: 5
 ---
 
 > One of the strangest and most complimentary requests when I left one of my teams was to distribute an export of my bookmarks. I realised we had done a lot of screen sharing and the team must have seen how I organise myself.

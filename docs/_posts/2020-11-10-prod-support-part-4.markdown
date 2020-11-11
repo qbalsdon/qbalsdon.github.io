@@ -3,7 +3,7 @@ layout: post
 title:  "Experiences with production support, Part 4: Trust the team"
 date:   2020-11-10 00:00:04 +0000
 categories: Soft skills
-comments_id: 5
+comments_id: 6
 ---
 > In my first mobile development job I had just released an app on the store. The trolls managed to find a spelling mistake and I was absolutely horrified. I waited days to be given the go-ahead to publish an update to the store, and eventually my lack of patience got the best of me. I released a fix without approval. After I realised I had actively betrayed the trust of my company and the client, I felt absolutely terrible.
 
