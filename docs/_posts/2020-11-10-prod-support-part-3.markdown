@@ -58,7 +58,3 @@ Keeping in touch with the team during a call out is essential, you'll be sending
 [DEOBFUSCATE]: https://support.google.com/googleplay/android-developer/answer/9848633?hl=en-GB&visit_id=637405961451784697-1905723958&rd=1
 [TESTINGQUOTE]: https://twitter.com/stahnma/status/634849376343429120
 [S10HACK]: https://arstechnica.com/gadgets/2019/10/galaxy-s10-fingerprint-reader-defeated-by-screen-protectors-phone-cases/
-<!--
-Stay in contact. Know who is with you
-
-Use reports - try to make reports before a callout happens. The business generally cares about money lost, so anything that prevents users from spending money are to be considered core business journeys. Also be able to read between the lines. Reports can only tell you what is, and the information is actually fairly brittle. 1000 crashes does not mean a single user crashed 1000 times but also does not mean 1000 users crashed once either. -->
