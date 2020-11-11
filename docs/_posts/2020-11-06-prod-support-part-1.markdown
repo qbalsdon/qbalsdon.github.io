@@ -34,4 +34,4 @@ Having clearly defined roles is critical when supporting software, just as much 
 [SOCS]: https://shelleybablitz.focalpointcoaching.com/blogs/solve-problems-with-the-socs-model
 [HSM]: https://en.wikipedia.org/wiki/Hardware_security_module
 [PART2]: https://qbalsdon.github.io/soft/skills/2020/11/09/prod-support-part-2.html
-[PART4]: https://qbalsdon.github.io/soft/skills/2020/11/09/prod-support-part-4.html
+[PART4]: https://qbalsdon.github.io/soft/skills/2020/11/10/prod-support-part-4.html
