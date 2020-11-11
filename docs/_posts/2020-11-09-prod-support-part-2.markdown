@@ -29,7 +29,7 @@ If you come out sounding like an expert on something and it turns out you're wro
 
 Another important aspect of communication on a call out is that of domain understanding. You cannot be expected to know everything about an ever-changing always-increasing domain space. The best approach I have found is to accept when something is unknown and just ask.
 
-> I remember once being told the was a problem with AOL. I was so confused because it was 2015 and a South African financial institution. Why were we running critical features on America On-Line? Did they even do that kind of thing? After 30 wasted minutes eventually I backed off and asked what AOL meant in their vocabulary. It was an internal service that had been coined "Accounts On Line."
+> I remember once being told there was a problem with AOL. I was so confused because it was 2015 and a South African financial institution. Why were we running critical features on America On-Line? Did they even do that kind of thing? After 30 wasted minutes eventually I backed off and asked what AOL meant in their vocabulary. It was an internal service that had been coined "Accounts On Line."
 
 Another question to ask is "What caused the call out?" Normally this gives an indication of where to start looking, or at least how to reproduce the issue. I normally group them as follows:
  - Social media / Call centre complaints - some experience is being affected and is more likely a subset of devices (e.g. Samsung Android devices) or a downstream service could be slow.
@@ -52,7 +52,7 @@ Reproducing the issue is probably the easiest way of getting to the bottom of a 
 
 ### Look around
 
-Knowing what is going on in a complex architecture can be difficult, so it's really important that systems have documentation associated with them. We found if particularly helpful when we could access the release notes of different systems and find out when changes were made. The most typical question to ask when something that was working starts the fail is: **"why now?"** - What was the most recent change and could that have been the cause?
+Knowing what is going on in a complex architecture can be difficult, so it's really important that systems have documentation associated with them. We found it particularly helpful when we could access the release notes of different systems and find out when changes were made. The most typical question to ask when something that was working starts the fail is: **"why now?"** - What was the most recent change and could that have been the cause?
 
 
 However there will be times when the problem is not internal or even a third party system. Every time Samsung does an update, or a new phone gets developed, you have a new support criteria to consider. Understanding fragmentation beyond just the scope of Android is very important.
