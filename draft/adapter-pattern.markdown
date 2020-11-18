@@ -29,7 +29,8 @@ Talk about interfaces (contracts) and abs classes (contracts with behaviour)
 
 make it agnostic
 
-use google as an example
+enable asynchronous development§
+use google as an example - they outsource their work with hardware
 
 
 -->
