@@ -18,18 +18,22 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+# bundle exec jekyll serve
 title: Practical Android
 LinkedIn: https://www.linkedin.com/in/qbalsdon/
 description: >- # this means to ignore newlines until "baseurl:"
   I've been developing Android apps since 2011 and have loved every
   minute. I enjoy tinkering in IoT and playing with Bluetooth /
   Bluetooth Low Energy. I'm a huge fan of TDD, Agile and lately
-  WearOS.
+  Wear OS.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: qbalsdon
-github_username:  qbalsdon
-stackoverflow_username:  qbalsdon
+minima:
+  social_links:
+    twitter: qbalsdon
+    github: qbalsdon
+    stackoverflow: "932052"
+    linkedin: qbalsdon
 
 # Build settings
 theme: minima

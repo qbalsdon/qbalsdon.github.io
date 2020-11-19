@@ -4,15 +4,13 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Welcome to Practical Android. This blog is a collection of my musings, ramblings and experiments. Originally from Johannesburg, South Africa, I've been programming since I was six, and developing Android applications since 2011. I have been fortunate enough to have completed a Masters Degree in computer science, and presented published at three international conferences in India, Turkey and Thailand.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+![alt-text][PROFILE]
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Please feel free to connect with me on LinkedIn, Twitter or GitHub. My goal is to be constantly learning and growing as a developer and human being.
 
+The images I use are either made by me or used within the bounds of my full licence with [flaticon][FLATICON].
 
-[jekyll-organization]: https://github.com/jekyll
+[PROFILE]: /images/profile.png
+[FLATICON]: https://www.flaticon.com/

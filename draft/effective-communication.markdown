@@ -1,11 +1,12 @@
 ---
 layout: post
 title:  "As a developer, I want to communicate effectively on my tickets, so that I can bring transparency to my work"
-date:   2020-11-12 00:00:00 +0000
+date:   20YY-MM-DD 00:00:00 +0000
 categories: Soft skills, Agile, Communication, Android
 comments_id:
 ---
 
+<!--
 In this session, I will discuss the power of using tickets as a communication tool:
 
 ### How to spot a quagmire
@@ -31,7 +32,7 @@ In this session, I will discuss the power of using tickets as a communication to
 1. Make comments at small milestones
 2. Add attachments as evidence
 
-
+-->
 <!--
 Take back power as a developers
 

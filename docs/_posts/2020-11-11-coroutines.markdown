@@ -2,7 +2,7 @@
 layout: post
 title:  "YACB: Yet Another Coroutine Blog"
 date:   2020-11-11 00:00:10 +0000
-categories: TL;DR, Android, Kotlin, Coroutines, Programming
+categories: TLDR Android Kotlin Coroutines Programming
 comments_id: 9
 ---
 

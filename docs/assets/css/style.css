@@ -1,0 +1,14 @@
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div {
+  text-align:justify;
+}
+
+pre, code {
+  background-color: #F1F1F1
+}
