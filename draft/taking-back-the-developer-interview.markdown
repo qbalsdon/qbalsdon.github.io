@@ -2,7 +2,7 @@
 layout: post
 title:  "Taking back power in the developer interview"
 date:   20yy-MM-dd 00:00:00 +0000
-categories:
+categories: Soft-skills
 comments_id:
 ---
 

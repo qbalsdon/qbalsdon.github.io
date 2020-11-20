@@ -10,12 +10,12 @@ Ever since [coroutines][CROUTINE] were introduced I have been long suffered to r
 
 In your app build.gradle:
 
-```
+{% highlight kotlin %}
 implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9'
-```
+{% endhighlight %}
 
 In your Activity:
-```
+{% highlight kotlin %}
     private suspend fun longRunningBackgroundThread() {
         doSomeWork()
         runOnUiThread {
@@ -34,7 +34,7 @@ In your Activity:
     // ...
 
     someJob.cancel() // if you need to cancel it
-```
+{% endhighlight %}
 
 [AsyncTasks][ASYNCTASK] took me forever to adopt, however they eventually won me over because they were Android agnostic and could be used in several places without context. I'm not a fan of boilerplate and [Background Services][BCKSERVICE] seemed overkill.
 

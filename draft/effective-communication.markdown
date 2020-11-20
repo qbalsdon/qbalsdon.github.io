@@ -2,7 +2,7 @@
 layout: post
 title:  "As a developer, I want to communicate effectively on my tickets, so that I can bring transparency to my work"
 date:   20YY-MM-DD 00:00:00 +0000
-categories: Soft skills, Agile, Communication, Android
+categories: Soft-skills Agile Communication Android
 comments_id:
 ---
 
@@ -23,7 +23,7 @@ In this session, I will discuss the power of using tickets as a communication to
 
 ### Failing fast
 
-1. The power of blocking
+1. Speak their language (The power of blocking)
 2. Mention people
 3. Go beyond the board
 

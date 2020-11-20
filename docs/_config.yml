@@ -39,6 +39,25 @@ minima:
 theme: minima
 plugins:
   - jekyll-feed
+
+header_pages:
+  - projects.markdown
+#  - talks.markdown
+#  - about.markdown
+
+#collections:
+#  docs:
+#    output: true
+#    permalink: /:collection/:path/
+#  projects:
+#    output: true
+#    permalink: /:collection/:path/
+#  portfolio:
+#    output: true
+#    permalink: /:collection/:path/
+#  talks:
+#    output: true
+#    permalink: /:collection/:path/
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
