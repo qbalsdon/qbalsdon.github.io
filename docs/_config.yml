@@ -41,9 +41,9 @@ plugins:
   - jekyll-feed
 
 header_pages:
-  - projects.markdown
+#  - projects.markdown
 #  - talks.markdown
-#  - about.markdown
+  - about.markdown
 
 #collections:
 #  docs:
