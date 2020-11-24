@@ -41,6 +41,9 @@ It may seem obvious, but reporting on a live production app is absolutely critic
  - Anonymised data: You may not be able to isolate a particular user, only a session - so remember to have anonymised session id's when a user accesses the system so that you can at least follow a journey. It's also vital to remember to maintain your own integrity when on a call out - do not take user passwords or other personal information.
  - The data you have. Remember you can only obtain information on what is logged, and problems may be occurring in areas you may not have thought of before. Being able to read in between the lines is such an important step when attempting to reproduce an issue.
 
+![alt text][SKETPLANATIONSMEASURE]
+[&copy;sketchplanations][SKETCHLINK]
+
 Some of the more interesting issues I have seen:  
 - ISP filtering of specific packet types causing massive slow downs and timeouts.
 - Device settings specific web view rendering problems
@@ -58,3 +61,5 @@ Keeping in touch with the team during a call out is essential, you'll be sending
 [DEOBFUSCATE]: https://support.google.com/googleplay/android-developer/answer/9848633?hl=en-GB&visit_id=637405961451784697-1905723958&rd=1
 [TESTINGQUOTE]: https://twitter.com/stahnma/status/634849376343429120
 [S10HACK]: https://arstechnica.com/gadgets/2019/10/galaxy-s10-fingerprint-reader-defeated-by-screen-protectors-phone-cases/
+[SKETCHLINK]: https://sketchplanations.com/you-get-what-you-measure
+[SKETPLANATIONSMEASURE]: https://images.prismic.io/sketchplanations/391d6aec-df76-4ee9-8243-fa6bf9bab40a_SP+692+-+You+get+what+you+measure.png?w=500 "You get what you measure"

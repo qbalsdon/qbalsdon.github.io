@@ -12,3 +12,10 @@ div {
 pre, code {
   background-color: #F1F1F1
 }
+
+/*blockquote {
+  background-image: url("/images/quotation-marks.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 50px 50px;
+}*/
