@@ -1,3 +1,4 @@
+{%- assign social = site.minima.social_links -%}
 <footer class="site-footer h-card">
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
@@ -5,29 +6,15 @@
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
-        <p><img src="/images/profile.png" alt="" width="40%"/></p>
+        {%- if social.stackoverflow -%}
+          <a href="https://stackoverflow.com/users/{{ social.stackoverflow | cgi_escape | escape }}"><img src="https://stackoverflow.com/users/flair/{{ social.stackoverflow | cgi_escape | escape }}.png?theme=clean" width="208" height="58" alt="Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="Stack Overflow, Q&amp;A for professional and enthusiast programmers"></a>
+        {%- endif -%}
       </div>
       <div class="social-links footer-col footer-col-2">
-        {%- include social.html -%}
+        {%- include social1.html -%}
       </div>
-      <div class="footer-col footer-col-3">
-        <p class="feed-subscribe">
-          <a href="{{ 'feed.xml' | relative_url }}">
-            <svg class="svg-icon orange">
-              <use xlink:href="{{ 'assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-            </svg><span>Subscribe</span>
-          </a>
-        </p>
-      {%- if site.author %}
-        <ul class="contact-list">
-          {% if site.author.name -%}
-            <li class="p-name">{{ site.author.name | escape }}</li>
-          {% endif -%}
-          {% if site.author.email -%}
-            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
-          {%- endif %}
-        </ul>
-      {%- endif %}
+      <div class="social-links footer-col footer-col-3">
+        {%- include social2.html -%}
       </div>
     </div>
 
