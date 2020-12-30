@@ -47,7 +47,7 @@ abstract class WatchFaceRenderable {
         invalidate?.invoke()
     }
 
-    abstract fun render(DOCS_CANVAS: DOCS_CANVAS, time: Long)
+    abstract fun render(canvas: Canvas, time: Long)
     abstract fun initialise()
     abstract fun updateStyle()
     abstract fun surfaceChanged(width: Int, height: Int)
