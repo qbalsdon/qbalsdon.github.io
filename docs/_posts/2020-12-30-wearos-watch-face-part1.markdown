@@ -24,7 +24,7 @@ In summary, the problems experienced with the Wear OS emulator were:
 1. setting the time without running `adb shell su root date $(date +%m%d%H%M%Y.%S)`
 1. control the progress of time
 1. seamlessly adjust the states of the watch face
-1. test the scalability without modifying screen density
+1. test the scalability without modifying screen density of the emulator
 1. Has anyone seen the [Oppo Watch][SITE_OPPOWATCH] - why is there no rectangular emulator?
 
 ## Architecture
