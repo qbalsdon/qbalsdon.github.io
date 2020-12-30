@@ -1,0 +1,6 @@
+List of devices attached
+YKCNW19C23013810       device usb:340787200X product:JAT-L41HWEEA model:JAT_L41 device:HWJAT-M transport_id:8
+192.168.1.180:5555     device product:firefish model:Q_Explorist_HR device:firefish transport_id:11
+adb-9C5AX0MV84-dejHCb._adb-tls-connect._tcp. device product:bonito model:Pixel_3a_XL device:bonito transport_id:7
+emulator-5554          device product:sdk_gphone_x86 model:Android_SDK_built_for_x86 device:generic_x86 transport_id:10
+

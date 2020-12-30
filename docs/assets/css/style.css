@@ -10,8 +10,39 @@ div {
 }
 
 pre, code {
-  background-color: #F1F1F1
+  background-color: #F1F1F1;
 }
+
+.site-header, .site-footer {
+  background-color: #000000;
+}
+
+a.light, a.social {
+  color: #CFCFCF;
+}
+
+.swag {
+  border: 1px solid black;
+  margin: 0 -100 0 0;
+  position: absolute;
+}
+
+.left-title {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 54px;
+  letter-spacing: -1px;
+  margin-bottom: 0;
+  float: left;
+}
+/* body {
+  background-color: #DCDCDC;
+}
+.post-content {
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+} */
 
 /*blockquote {
   background-image: url("/images/quotation-marks.png");

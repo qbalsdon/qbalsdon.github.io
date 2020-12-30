@@ -215,3 +215,8 @@ If you would like to see / download the code used in this blog, you can find it 
 
 [DEMO]: /images/adapter_map.gif "Map Adapter"
 [INTRO]: /images/adapter_diagram.png "Adapter Pattern"
+
+<!--
+Additional research:
+https://www.youtube.com/watch?v=xqENogbvtrU ~ 10 minutes in
+-->

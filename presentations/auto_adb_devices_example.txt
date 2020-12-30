@@ -1,0 +1,6 @@
+List of devices attached
+YKCNW19C23013810	device
+192.168.1.180:5555	device
+adb-9C5AX0MV84-dejHCb._adb-tls-connect._tcp.	device
+emulator-5554	device
+

@@ -2,7 +2,7 @@
 layout: post
 title:  "As a developer, I want to communicate effectively on my tickets, so that I can bring transparency to my work"
 date:   20YY-MM-DD 00:00:00 +0000
-categories: Soft-skills Agile Communication Android
+categories: Soft-skills Agile Communication Android Developer-Power
 comments_id:
 ---
 

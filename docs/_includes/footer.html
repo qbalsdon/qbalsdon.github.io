@@ -1,4 +1,5 @@
 {%- assign social = site.minima.social_links -%}
+<link rel="stylesheet" href="/assets/css/style.css">
 <footer class="site-footer h-card">
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
@@ -7,7 +8,7 @@
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         {%- if social.stackoverflow -%}
-          <a href="https://stackoverflow.com/users/{{ social.stackoverflow | cgi_escape | escape }}"><img src="https://stackoverflow.com/users/flair/{{ social.stackoverflow | cgi_escape | escape }}.png?theme=clean" width="208" height="58" alt="Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="Stack Overflow, Q&amp;A for professional and enthusiast programmers"></a>
+          <a href="https://stackoverflow.com/users/{{ social.stackoverflow | cgi_escape | escape }}"><img src="https://stackoverflow.com/users/flair/{{ social.stackoverflow | cgi_escape | escape }}.png?theme=dark" width="208" height="58" border=0 alt="Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="Stack Overflow, Q&amp;A for professional and enthusiast programmers"></a>
         {%- endif -%}
       </div>
       <div class="social-links footer-col footer-col-2">
