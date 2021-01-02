@@ -35,6 +35,12 @@ a.light, a.social {
   margin-bottom: 0;
   float: left;
 }
+
+.nomnoml {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+}
 /* body {
   background-color: #DCDCDC;
 }
