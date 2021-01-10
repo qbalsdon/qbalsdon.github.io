@@ -7,6 +7,10 @@ comments_id:
 ---
 
 <!--
+
+https://www.polidea.com/blog/accessibility-mistakes-to-avoid-when-implementing-it-in-an-android-app/
+https://www.w3.org/TR/WCAG20/
+
 Look up US, UK and EU laws regarding accessibility
 https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps
 
@@ -37,6 +41,7 @@ Google do something but it's not enough
 
 Screen shot tests with font size changes: https://stackoverflow.com/questions/32692459/how-to-change-font-size-by-adb-command
 
+Ensuring that testers can test a11y means creating entry points for various states
 
 https://getaccessible.com/
 
@@ -45,4 +50,7 @@ Practical advice:
  - kotlin extension functions for setImageResource
  - use the libraries
  - android:contentDescription="@null" :O
+
+ https://withintent.uncorkedstudios.com/tutorial-debugging-android-accessibility-818cfd361414
+ > Here’s the crux of the issue: __**many developers don’t to know the difference between something that “fixes the problem” and something that makes their app inaccessible.**__ In attempting to make a quick fix, we eliminate our ability to make an accessible choice.
 -->

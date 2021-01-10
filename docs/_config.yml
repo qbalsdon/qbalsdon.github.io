@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-# bundle exec jekyll serve
+# bundle exec jekyll serve --future
 title: Practical Android
 LinkedIn: https://www.linkedin.com/in/qbalsdon/
 description: >- # this means to ignore newlines until "baseurl:"
