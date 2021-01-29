@@ -25,10 +25,4 @@ WhatsApp and FB, with my contacts they could associate a person with a phone num
 Battery life - why do companies track that?
 
 Google just bought Fitbit. Another example of the small competitor be
-
-https://www.zdnet.com/article/i-looked-at-all-the-ways-microsoft-teams-tracks-users-and-my-head-is-spinning/
-
-https://play.google.com/store/apps/details?id=jp.susatthi.ManifestViewer
-
-https://developer.android.com/guide/topics/permissions/overview#perm-groups
 -->

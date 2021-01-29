@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sh restartApp -a io.materialdesign.catalog

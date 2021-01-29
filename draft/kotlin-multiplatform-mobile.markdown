@@ -50,12 +50,18 @@ https://dev.to/s2engineers/the-future-of-cross-platform-development-kotlin-multi
 
 https://medium.com/mindful-engineering/getting-started-with-kotlin-multiplatform-part-1-working-with-mobile-platforms-1fd76ce2f055
 
+https://trends.google.com/trends/explore?cat=31&q=React%20Native,Flutter,NativeScript,Xamarin
+
 > When a tool allows you to write a code once and that can be built for multiple platforms that we can call a cross-platform. While a code that can able to run on multiple platforms is multiplatform.
 
 ## Cross Platform Critiscm
 
   + App citizenship
   + Software Development Lifecycle
+  + Actual numbers to back up claims of speed, efficacy and cost saving
+  + Saves time: developers who don't know the internals need to learn those internals, like Android BLE and location relationship. Bugs fixed on one platform need to be double checked on the other platform. A lot of the learning is going to be from the beginning, meaning while you might be getting a web professional, you're not getting a mobile professional.
+
+  https://topdevs.org/blog/crossplatform-vs-native-app-development 
 
 ## Kotlin Multiplatform Mobile
 

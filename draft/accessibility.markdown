@@ -7,7 +7,7 @@ comments_id:
 ---
 
 <!--
-
+screenshot tests for a11y
 https://www.polidea.com/blog/accessibility-mistakes-to-avoid-when-implementing-it-in-an-android-app/
 https://www.w3.org/TR/WCAG20/
 
