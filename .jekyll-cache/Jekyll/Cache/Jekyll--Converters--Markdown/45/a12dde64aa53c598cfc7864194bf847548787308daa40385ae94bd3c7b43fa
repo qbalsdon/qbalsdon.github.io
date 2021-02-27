@@ -1,0 +1,8 @@
+I"<!--
+Use of logical fallacies when debugging
+
+False consequence: Our reports say that your system is doing X - they are looking at a report generated from the back end data and making a claim about how the front end works. Need to look at how the back end works as well
+
+
+-->
+:ET

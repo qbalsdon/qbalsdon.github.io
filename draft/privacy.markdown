@@ -31,4 +31,11 @@ https://www.zdnet.com/article/i-looked-at-all-the-ways-microsoft-teams-tracks-us
 https://play.google.com/store/apps/details?id=jp.susatthi.ManifestViewer
 
 https://developer.android.com/guide/topics/permissions/overview#perm-groups
+
+We have free speech, but not all platforms encourage it: https://gizmodo.com/google-deletes-100-000-negative-reviews-of-robinhood-ap-1846156699
+
+https://knowledge.protektoid.com/apps/com.google.android.marvin.talkback/35ddc9c35f0c3436b446dad9c8d3d000de974163769c2f801651525f52a24287
+https://uk.pcmag.com/news/119486/what-does-big-tech-know-about-you-basically-everything
+
+https://youtu.be/vaD-DPI6sg
 -->

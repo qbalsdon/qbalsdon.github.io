@@ -1,0 +1,201 @@
+I"Y`<p>One of the biggest cause of delays in software development is that of dependencies. It seems as though we’re always waiting for something - designs, copy, data, decisions. However time spent waiting is time wasted. Especially when it comes to data.</p>
+
+<blockquote>
+  <p>I remember as a third year student, we had to develop a system for a bank. The bank could afford to wait to give us test data, but we couldn’t. We only had a very specific time frame and eventually (after two weeks) we realised we needed to make it up ourselves. We never did get that data, and we lost a lot of precious time as a result.</p>
+</blockquote>
+
+<p>The above experience is my first memory of dependency hell. The odd thing is, even 16 years later I still see it quite often. Teams and software delayed because of some other part of the entire system. I think the worst thing one can do, however, is simply wait for the situation to change.</p>
+
+<p>Enter the <a href="https://en.wikipedia.org/wiki/Adapter_pattern">adapter pattern</a>. This structure allows developers to define an interface, that when implemented, uses a specific component. This may sound a lot like a simple contract, but <strong>knowing what you are doing</strong> is the key element.</p>
+
+<p><img src="/images/adapter_diagram.png" alt="alt text" title="Adapter Pattern" /></p>
+
+<p>Sometimes the problem can be an <em>unknown or unavailable data source</em>. Projects may require tracking some sort of sensory data obtained from another system. This could be a temperature sensor out in a field, or GPS coordinates from a tracking device. Either way, when writing a system that depends on incoming data, it is tempting to start at the data source. Instead you could start by creating the interface that you expect the underlying system to implement, and then implement a rudimentary one that returns some static data.</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">interface</span> <span class="nc">GPSTracker</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">subscribeToUpdates</span><span class="p">(</span><span class="n">onCoordinateReceived</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">unsubscribe</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>What I like about this kind of approach:</p>
+<ol>
+  <li>There is no doubt about the purpose of the interface</li>
+  <li>The name is clear, and it encourages implementations to have meaningful names</li>
+  <li>Dependency isolation
+    <ul>
+      <li>abstraction from domain-specific implementation</li>
+      <li>tests can be written on one component at a time</li>
+      <li>implementations can be modified easily</li>
+    </ul>
+  </li>
+  <li>Data control
+    <ul>
+      <li>Use <a href="https://developer.android.com/studio/build/build-variants?authuser=3">build variants</a> to hide implementations from each other</li>
+      <li>If a component has a predictable dependency, it’s tests will be reliable</li>
+    </ul>
+  </li>
+  <li>Fast development
+    <ul>
+      <li>Bypass secondary requirements like login - logging in for every build is a time-waste</li>
+      <li>Focus on the task at hand</li>
+      <li>No <a href="https://developer.android.com/training/dependency-injection/hilt-android">dependency injection</a> (yet)</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Consider the most basic example, which runs on the main thread and uses a simple data set:</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">class</span> <span class="nc">StaticGPSTracker</span> <span class="p">:</span> <span class="nc">GPSTracker</span> <span class="p">{</span>
+    <span class="kd">data class</span> <span class="nc">TestPoint</span><span class="p">(</span><span class="kd">val</span> <span class="py">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="kd">val</span> <span class="py">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="kd">val</span> <span class="py">sleepMillis</span><span class="p">:</span> <span class="nc">Long</span><span class="p">)</span>
+
+    <span class="kd">var</span> <span class="py">subscriber</span><span class="p">:</span> <span class="p">((</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">index</span><span class="p">:</span> <span class="nc">Int</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">points</span> <span class="p">=</span> <span class="nf">listOf</span><span class="p">(</span>
+            <span class="nc">TestPoint</span><span class="p">(</span><span class="mf">1F</span><span class="p">,</span> <span class="mf">1F</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+            <span class="nc">TestPoint</span><span class="p">(</span><span class="mf">2F</span><span class="p">,</span> <span class="mf">2F</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+            <span class="o">..</span><span class="p">.</span> <span class="c1">//You get the idea</span>
+    <span class="p">)</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">subscribeToUpdates</span><span class="p">(</span>
+      <span class="n">onCoordinateReceived</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">subscriber</span> <span class="p">=</span> <span class="n">onCoordinateReceived</span>
+        <span class="nf">publishNextCoordinate</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">unsubscribe</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">subscriber</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">publishNextCoordinate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">index</span> <span class="p">%=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span> <span class="c1">//ensure wrap</span>
+
+        <span class="n">subscriber</span><span class="o">?.</span><span class="nf">apply</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">x</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">y</span><span class="p">)</span>
+            <span class="nc">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">index</span><span class="p">++].</span><span class="n">sleepMillis</span><span class="p">)</span>
+            <span class="nf">publishNextCoordinate</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">..</span><span class="p">.</span>
+<span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="nc">AppCompatActivity</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">tag</span> <span class="p">=</span> <span class="nc">MainActivity</span><span class="o">::</span><span class="k">class</span><span class="p">.</span><span class="n">java</span><span class="p">.</span><span class="n">canonicalName</span>
+
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">gpsTracker</span><span class="p">:</span> <span class="nc">GPSTracker</span> <span class="p">=</span> <span class="nc">StaticGPSTracker</span><span class="p">()</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="nc">Bundle</span><span class="p">?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="nf">setContentView</span><span class="p">(</span><span class="nc">R</span><span class="p">.</span><span class="n">layout</span><span class="p">.</span><span class="n">activity_main</span><span class="p">)</span>
+
+        <span class="n">gpsTracker</span><span class="p">.</span><span class="nf">subscribeToUpdates</span><span class="p">(</span><span class="o">::</span><span class="n">onCoordinateReceived</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">onCoordinateReceived</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nc">Log</span><span class="p">.</span><span class="nf">d</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s">"COORDINATE: [$x,$y]"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>While simple enough, the example above is sleeping on the main thread, which is not recommended for long running or ongoing underlying operations. Other solutions might involve the deprecated <a href="https://developer.android.com/reference/android/os/Handler">Handler class</a>, however we can create a new version with <a href="https://qbalsdon.github.io/tldr/android/kotlin/coroutines/programming/2020/11/11/coroutines.html">coroutines</a>. This doesn’t change the Activity’s behaviour, it just uses a different instantiation of the same interface.</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">class</span> <span class="nc">StaticCoroutineGPSTracker</span><span class="p">(</span><span class="k">private</span> <span class="kd">val</span> <span class="py">scope</span><span class="p">:</span> <span class="nc">CoroutineScope</span><span class="p">)</span> <span class="p">:</span> <span class="nc">GPSTracker</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="py">subscriber</span><span class="p">:</span> <span class="p">((</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">job</span><span class="p">:</span> <span class="nc">Job</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">index</span> <span class="p">=</span> <span class="nc">AtomicInteger</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">// Because threads</span>
+    <span class="k">private</span> <span class="kd">val</span> <span class="py">points</span> <span class="p">=</span> <span class="n">testPoints</span> <span class="c1">// Moved to separate file</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">subscribeToUpdates</span><span class="p">(</span>
+      <span class="n">onCoordinateReceived</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">job</span><span class="o">?.</span><span class="nf">cancel</span><span class="p">()</span>
+        <span class="n">subscriber</span> <span class="p">=</span> <span class="n">onCoordinateReceived</span>
+        <span class="n">job</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="nf">launch</span> <span class="p">{</span>
+            <span class="nf">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">IO</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ensures running on separate thread</span>
+                <span class="nf">publishNextCoordinate</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">unsubscribe</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">job</span><span class="o">?.</span><span class="nf">cancel</span><span class="p">()</span>
+        <span class="n">subscriber</span> <span class="p">=</span> <span class="k">null</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">publishNextCoordinate</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">subscriber</span><span class="o">?.</span><span class="nf">apply</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="py">position</span> <span class="p">=</span> <span class="n">index</span><span class="p">.</span><span class="k">get</span><span class="p">()</span>
+            <span class="n">scope</span><span class="p">.</span><span class="nf">launch</span> <span class="p">{</span>
+                <span class="nf">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="nc">Main</span><span class="p">)</span> <span class="p">{</span><span class="c1">// Back on the main thread</span>
+                    <span class="k">this</span><span class="nd">@apply</span><span class="p">(</span>
+                        <span class="n">points</span><span class="p">[</span><span class="n">position</span><span class="p">].</span><span class="n">x</span><span class="p">,</span>
+                        <span class="n">points</span><span class="p">[</span><span class="n">position</span><span class="p">].</span><span class="n">y</span>
+                    <span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="nc">Thread</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">position</span><span class="p">].</span><span class="n">sleepMillis</span><span class="p">)</span>
+            <span class="c1">// wrap</span>
+            <span class="n">index</span><span class="p">.</span><span class="k">set</span><span class="p">((</span><span class="n">index</span><span class="p">.</span><span class="nf">incrementAndGet</span><span class="p">())</span> <span class="p">%</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="nf">publishNextCoordinate</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// making the MainAvtivity use:</span>
+<span class="c1">// private val gpsTracker: GPSTracker = StaticCoroutineGPSTracker(MainScope())</span></code></pre></figure>
+
+<p>This is all the power of the adapter: Being able to swap out <em>behaviour</em> without affecting the rest of the system. It’s at this point we could dive into <a href="https://developer.android.com/training/dependency-injection/hilt-android">dependency injection</a>, <a href="https://developer.android.com/training/location/permissions">permission management</a> (if we want the data from the devices sensors) or start creating a web API for downloading data. What has been achieved is demonstrating that listening for a collection of GPS coordinates does not <strong>mandate</strong> those dependencies.</p>
+
+<p>It’s at this point that I started to want to put this on an actual map, but I ran into another dependency! The <a href="https://developers.google.com/android/reference/com/google/android/gms/maps/MapView">Google MapView</a> has quite a lot of <a href="https://developers.google.com/maps/documentation/android-sdk/overview">boilerplate</a> and work that requires implementation, plus an API key that needs to be obtained. This is all fine and good, except now there is a part of the code that needs to be <strong>my secret</strong> (i.e. not available to developers who download the <a href="https://github.com/qbalsdon/adapterexample">example code</a>), and also means that I can’t use something else like <a href="https://docs.mapbox.com/android/maps/examples/create-a-simple-map-view/">MapBox</a> or <a href="https://developer.here.com/documentation/android-sdk-lite/4.5.1.0/dev_guide/index.html">Nokia Here</a>. When there are this many options for providers, we have the perfect makings for an Adapter. So I did that.</p>
+
+<p>The first thing I did was make a simple View (<code class="language-plaintext highlighter-rouge">SomeMapView</code>) to render something that resembles a map. It inherits from <a href="https://developer.android.com/reference/android/widget/FrameLayout">FrameLayout</a> in the same way that <a href="https://developers.google.com/android/reference/com/google/android/gms/maps/MapView">Google maps</a> does. The <strong>important</strong> part, however, is the <strong><em>idea</em></strong> that we can place a pin on the map somewhere. And so I created my adapter:</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">interface</span> <span class="nc">MapMarkerAdapter</span> <span class="p">{</span>
+    <span class="k">fun</span> <span class="nf">placeMarker</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="o">..</span><span class="p">.</span>
+
+<span class="kd">class</span> <span class="nc">SomeMapView</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="nc">Context</span><span class="p">,</span> <span class="n">attrs</span><span class="p">:</span> <span class="nc">AttributeSet</span><span class="p">)</span>
+  <span class="p">:</span> <span class="nc">FrameLayout</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">attrs</span><span class="p">),</span> <span class="nc">MapMarkerAdapter</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">pinX</span><span class="p">:</span> <span class="nc">Float</span> <span class="p">=</span> <span class="mf">0F</span>
+    <span class="k">private</span> <span class="kd">var</span> <span class="py">pinY</span><span class="p">:</span> <span class="nc">Float</span> <span class="p">=</span> <span class="mf">0F</span>
+
+    <span class="o">..</span><span class="p">.</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">placeMarker</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">pinX</span> <span class="p">=</span> <span class="n">x</span>
+       <span class="n">pinY</span> <span class="p">=</span> <span class="n">y</span>
+       <span class="nf">invalidate</span><span class="p">()</span>
+   <span class="p">}</span>
+   <span class="o">..</span><span class="p">.</span>
+ <span class="p">}</span>
+
+<span class="o">..</span><span class="p">.</span>
+
+    <span class="c1">// Back in the activity</span>
+    <span class="k">private</span> <span class="k">fun</span> <span class="nf">onCoordinateReceived</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nc">Float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nc">Float</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="n">mapView</span> <span class="k">as</span> <span class="nc">MapMarkerAdapter</span><span class="p">).</span><span class="nf">placeMarker</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="p">}</span></code></pre></figure>
+
+<p>The map implementation details <em>do not matter</em>. Where the points come from <em>do not matter</em>. Developers need to remain focussed on the task at hand. And when it comes time to plug in a particular dependency, they need to implement a very simple interface. As long as the <code class="language-plaintext highlighter-rouge">view</code> object inherits from the <code class="language-plaintext highlighter-rouge">MapMarkerAdapter</code> the <code class="language-plaintext highlighter-rouge">placeMarker</code> method can be called. Any other behaviours are <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effects</a> to the goal. The results are quite satisfying:</p>
+
+<p><img src="/images/adapter_map.gif" alt="alt text" title="Map Adapter" /></p>
+
+<h4 id="what-was-avoided">What was avoided?</h4>
+<ul>
+  <li><a href="https://developer.android.com/training/location/permissions">Permission management</a> is separated out</li>
+  <li>Data source is separated from implementation logic</li>
+  <li>Map SDK agnostic - no need to decide which map provider to use (or spend time learning it)</li>
+  <li>No internet permission needed</li>
+  <li>Very little reactive programming (one delegate)</li>
+  <li>Data representation is abstracted</li>
+  <li>Platform-agnostic solution</li>
+  <li>Dependency Injection can be better defined knowing exactly what the dependencies beforehand</li>
+</ul>
+
+<p>I hope that thinking in terms of dependencies and adapters will help developers create great software, and enable the right type of focus. I often use the adapter pattern when I don’t have a data source like a web API up and running, or if there is some login process I need to go through in order to fetch data. It’s really useful in Android because if a <a href="https://developer.android.com/studio/build/build-variants?authuser=3">build variant</a> is used, then the test code never gets compiled in the actual release.</p>
+
+<p>If you would like to see / download the code used in this blog, you can find it <a href="https://github.com/qbalsdon/adapterexample">here</a>.</p>
+
+<!--
+Additional research:
+https://www.youtube.com/watch?v=xqENogbvtrU ~ 10 minutes in
+-->
+:ET

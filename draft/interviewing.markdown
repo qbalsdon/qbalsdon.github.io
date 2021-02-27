@@ -1,28 +1,20 @@
 ---
 layout: post
-title:  "Privacy"
+title:  "Interview both ways"
 date:   20yy-MM-dd 00:00:00 +0000
-categories: Soft-skills Bench Developer-Power
+categories: Soft-skills Interview Developer-Power
 comments_id:
 ---
 
 
 
 <!--
-Corporate gaslighting
+Asking questions can be:
+1. Because the answer is important
+1. Because the question is important
+1. Because the process of asking is important : Reference book
 
-can't sleep, use a sleep tracker, advertise pills companies can see what ads get responses
+No ViewBinding? LiveData / MVVM? Room? The problem with these types of questions is while they might show some textbook knowledge they definitely do not invite the answerer to demonstrate their usage of Android specifically. I have been in rapid fire situations like that and it ends up feeling like a quiz show more than an interview
 
-
-## It's not about the policy, It's about sending a message
-"I'm not that interesting"
-sharing your contacts - not just you
-
-Info whatsapp collects - policy vs programming: https://www.whatsapp.com/legal/updates/privacy-policy/?lang=en
-
-WhatsApp and FB, with my contacts they could associate a person with a phone number that might not want that
-
-Battery life - why do companies track that?
-
-Google just bought Fitbit. Another example of the small competitor be
+https://youtu.be/bx3--22D4E4
 -->

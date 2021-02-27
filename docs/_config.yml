@@ -19,13 +19,12 @@
 # in the templates via {{ site.myvariable }}.
 
 # bundle exec jekyll serve --future
-title: Practical Android
+title: "//TODO: Blog"
 LinkedIn: https://www.linkedin.com/in/qbalsdon/
 description: >- # this means to ignore newlines until "baseurl:"
-  I've been developing Android apps since 2011 and have loved every
-  minute. I enjoy tinkering in IoT and playing with Bluetooth /
-  Bluetooth Low Energy. I'm a huge fan of TDD, Agile and lately
-  Wear OS.
+  This is my blog. I love coding, and I'm always learning. If the documentation
+  doesn't make sense to me, or I write something cool, I'll put some of it here.
+  It's mostly Android, but a lot of IoT.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 minima:

@@ -1,0 +1,191 @@
+<p>The diagram below is the result of several hours of considerate pulling apart and re-thinking several different elements regarding Android <del>Wallpaper</del> Wear OS Watch Face Architecture. It halves a 500 line code file into several smaller classes, and hopefully the following discussion will clarify the reasoning of the component separation and provide a better understanding of the Wear OS watch face ecosystem.</p>
+
+<p>The <a href="https://github.com/qbalsdon/wearOS">sample code can be found here</a>.</p>
+
+<canvas id="overall-uml" class="nomnoml"></canvas>
+<script>
+    var source = "\
+    [<abstract>CanvasWatchFaceService];\
+    [<abstract>WatchFaceService];\
+    [<abstract>WatchFaceEngineHandler];\
+    [<abstract>WatchFaceRenderer];\
+    [<abstract>WatchFaceRenderable];\
+    [<abstract>WatchFaceRenderable]o--+[WatchScreenSettings];\
+    [<abstract>CanvasWatchFaceService]<:--[<abstract>WatchFaceService];\
+    [<abstract>WatchFaceService]o--:>[<abstract>WatchFaceEngineHandler];\
+    [<abstract>WatchFaceService]o-+[WatchFaceEngine];\
+    [<abstract>WatchFaceService]o--+[<abstract>WatchFaceRenderer];\
+    [<abstract>WatchFaceRenderer]--:>[<abstract>WatchFaceRenderable];\
+    [WatchFaceEngine]+--o[<abstract>WatchFaceEngineHandler];\
+    [WatchFaceEngine]--:>[Updateable];\
+    [WatchFaceEngine]o--+[InteractiveTimeUpdateHandler];\
+    [Updateable]o--+[InteractiveTimeUpdateHandler];\
+    [InteractiveTimeUpdateHandler]--:>[Handler]";
+
+    showGraph("overall-uml", source);
+</script>
+
+<p><a href="https://qbalsdon.github.io/wearos/programming/android/kotlin/2020/12/30/wearos-watch-face-part1.html">Part 1</a> focused on the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderable.kt"><code class="language-plaintext highlighter-rouge">WatchFaceRenderable.kt</code></a> and <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderer.kt"><code class="language-plaintext highlighter-rouge">WatchFaceRenderer.kt</code></a> classes, which reduces the complexity of drawing a watch face to simple canvas drawing. This mechanism allows implementations of <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderer.kt"><code class="language-plaintext highlighter-rouge">WatchFaceRenderer.kt</code></a> to be injected into watch face and standard Android applications, for the purpose of separating concerns, debugging and testing.</p>
+
+<canvas id="WatchFaceRenderable-uml" class="nomnoml"></canvas>
+<script>
+    var source = "\
+    [WatchFaceRenderable];[WatchFaceRenderer];\
+    [<abstract>WatchFaceRenderable\
+    |setTimeZone(timeZone: TimeZone);\
+  	render(canvas: Canvas, time: Long);\
+  	initialise();\
+  	updateStyle();\
+  	surfaceChanged(width: Int, height: Int)\
+    |currentTime: Calendar;\
+  	invalidate: (() -> Unit)?;\
+    screenSettings: WatchScreenSettings];\
+    [<abstract>WatchFaceRenderer\
+      |initImages(resources: Resources);\
+      drawWatchFace(canvas: Canvas)\
+      |resources: Resources?\
+    ];\
+    [WatchFaceRenderable]<:--[WatchFaceRenderer]";
+
+    showGraph("WatchFaceRenderable-uml", source);
+</script>
+
+<p>The above classes are all that need to be understood in order to get an initial Wear OS watch face rendering on a <a href="https://developer.android.com/reference/android/graphics/Canvas">canvas</a>, with <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/example/ExampleWatchRenderer.kt"><code class="language-plaintext highlighter-rouge">ExampleWatchRenderer.kt</code></a> as a general guide that also demonstrates how to incorporate bitmaps as background images. The <a href="https://developer.android.com/training/dependency-injection/hilt-android"><code class="language-plaintext highlighter-rouge">injection</code></a> of the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/example/ExampleWatchRenderer.kt"><code class="language-plaintext highlighter-rouge">ExampleWatchRenderer.kt</code></a> is defined in the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/di/WatchFaceModule.kt"><code class="language-plaintext highlighter-rouge">WatchFaceModule.kt</code> in the <code class="language-plaintext highlighter-rouge">watchfacerenderer</code> module</a>.</p>
+
+<h3 id="service-and-engine">Service and Engine</h3>
+
+<p>At the core of every Watch Face is the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/service/WatchFaceService.kt"><code class="language-plaintext highlighter-rouge">WatchFaceService.kt</code></a>, which has an inner class of type <code class="language-plaintext highlighter-rouge">WatchFaceEngine</code> - this engine does most, if not all, the heavy lifting required for the watch face. It responds to the lifecycle of the watch face (handled by the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/service/WatchFaceService.kt"><code class="language-plaintext highlighter-rouge">WatchFaceService.kt</code></a>), much like an activity. It gets notified if the watch face’s state changes. An interesting discussion to be had is whether inner classes violate <a href="https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/">SOLID principles</a>, namely that of single responsibility. This discussion is left for the comments and potentially a future article.</p>
+
+<canvas id="service-uml" class="nomnoml"></canvas>
+<script>
+    var source = "\
+    [<abstract>CanvasWatchFaceService];\
+    [<abstract>WatchFaceService|onCreateEngine(): WatchFaceEngine];\
+    [WatchFaceEngine\
+    | onCreate(holder: SurfaceHolder);\
+      onPropertiesChanged(properties: Bundle);\
+      onTimeTick();\
+      onAmbientModeChanged(inAmbientMode: Boolean);\
+      onInterruptionFilterChanged(interruptionFilter: Int);\
+      onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int);\
+      onDraw(canvas: Canvas, bounds: Rect);\
+      onVisibilityChanged(visible: Boolean);\
+      onComplicationDataUpdate(complicationId: Int,data: ComplicationData?);\
+      onDestroy()\
+    ];\
+    [<abstract>CanvasWatchFaceService]<:--[<abstract>WatchFaceService];\
+    [<abstract>WatchFaceService]o-+[WatchFaceEngine]\
+    ";
+
+    showGraph("service-uml", source);
+</script>
+
+<p>The <a href="https://developer.android.com/training/wearables/watch-faces/service">service documentation</a> demonstrates the simple relationship between a service and it’s <code class="language-plaintext highlighter-rouge">Engine</code> - the <a href="https://developer.android.com/training/wearables/watch-faces/service"><code class="language-plaintext highlighter-rouge">CanvasWatchFaceService</code></a> is a <a href="https://developer.android.com/guide/components/services#Types-of-services">foreground service</a> that will fire the necessary events in the <code class="language-plaintext highlighter-rouge">Engine</code> which in turn can be processed by the watch face.</p>
+
+<p>There are a few methods of which are worth taking note:</p>
+<ul>
+  <li><a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.Engine#onPropertiesChanged(android.os.Bundle)"><code class="language-plaintext highlighter-rouge">onPropertiesChanged</code></a>: used to determine the screen states of
+    <ul>
+      <li><a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.html#property_low_bit_ambient"><code class="language-plaintext highlighter-rouge">lowBitAmbientStatus</code></a>: fewer bits per colour in ambient mode</li>
+      <li><a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.html#PROPERTY_BURN_IN_PROTECTION"><code class="language-plaintext highlighter-rouge">isBurnInProtectionMode</code></a>: view is periodically offset when in ambient mode</li>
+    </ul>
+  </li>
+  <li><a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.Engine.html#onInterruptionFilterChanged(int)"><code class="language-plaintext highlighter-rouge">onInterruptionFilterChanged</code></a>: Used to indicate that the watch face is in <code class="language-plaintext highlighter-rouge">Mute Mode</code>, where the “<em>watch face should adjust the amount of information it displays</em>.” It’s assumed from the example code that <a href="https://github.com/qbalsdon/wearOS/commit/5f70b6e4dcc4be9210ee1d1e486c2ba9a77e19ef#diff-86510bcc89d3a5aa885d3a200bba7bc73ca6054e72fbd3d3b5a6d6de21648ee7R269">modifying the alpha</a> is appropriate for the simple watch face, and hiding any extra information for more <a href="#a-small-note-on-complications"><strong>complicated</strong></a> faces.</li>
+  <li><a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.Engine.html#onvisibilitychanged"><code class="language-plaintext highlighter-rouge">onVisibilityChanged</code></a>: Used to update the time zone to default, register the <a href="https://developer.android.com/guide/components/broadcasts">broadcast receiver</a> to listen to time zone changes and ensure that the interactive mode timer is operational if necessary.</li>
+</ul>
+
+<h3 id="interactive-mode-handler">Interactive Mode Handler</h3>
+
+<p>While the <code class="language-plaintext highlighter-rouge">Engine</code> inner class has a <code class="language-plaintext highlighter-rouge">onTimeTick()</code> method, it is not sufficient for a watch face in interactive mode. According to the <a href="https://developer.android.com/training/wearables/watch-faces/drawing#TimeTick">documentation</a>:</p>
+
+<blockquote>
+  <p>In ambient mode, the system calls the <a href="https://developer.android.com/reference/android/support/wearable/watchface/WatchFaceService.Engine#onTimeTick()"><code class="language-plaintext highlighter-rouge">Engine.onTimeTick()</code></a> method every minute. It is usually sufficient to update your watch face once per minute in this mode. To update your watch face while in interactive mode, you must provide a custom timer as described in <a href="https://developer.android.com/training/wearables/watch-faces/drawing#Timer">Initialize the custom timer</a>.</p>
+</blockquote>
+
+<p>The <a href="https://github.com/qbalsdon/wearOS/commit/5f70b6e4dcc4be9210ee1d1e486c2ba9a77e19ef#diff-86510bcc89d3a5aa885d3a200bba7bc73ca6054e72fbd3d3b5a6d6de21648ee7">sample code</a> has an added <code class="language-plaintext highlighter-rouge">Handler</code> that is used to <a href="https://github.com/qbalsdon/wearOS/commit/5f70b6e4dcc4be9210ee1d1e486c2ba9a77e19ef#diff-86510bcc89d3a5aa885d3a200bba7bc73ca6054e72fbd3d3b5a6d6de21648ee7R499">“Handle updating the time periodically in interactive mode”</a>. The control of the <code class="language-plaintext highlighter-rouge">handler</code> is managed every time <code class="language-plaintext highlighter-rouge">onAmbientModeChanged()</code> and <code class="language-plaintext highlighter-rouge">onVisibilityChanged()</code> are invoked. The primary function is to ensure that every second, on the second, <code class="language-plaintext highlighter-rouge">invalidate</code> is invoked. These methods are mutually recursive with a check every loop.</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"> <span class="cm">/**
+  * https://developer.android.com/reference/kotlin/android/os/Handler
+  * There are two main uses for a Handler:
+  *     (1) to schedule messages and runnables to be executed at
+  *         some point in the future; and
+  *     (2) to enqueue an action to be performed on a different
+  *         thread than your own.
+  */</span>
+ <span class="kd">class</span> <span class="nc">EngineHandler</span><span class="p">&lt;</span><span class="nc">T</span> <span class="p">:</span> <span class="nc">TimeUpdateHandler</span><span class="p">&gt;(</span><span class="n">reference</span><span class="p">:</span> <span class="nc">T</span><span class="p">)</span>
+     <span class="p">:</span> <span class="nc">Handler</span><span class="p">(</span><span class="nc">Looper</span><span class="p">.</span><span class="nf">getMainLooper</span><span class="p">())</span> <span class="p">{</span>
+     <span class="k">private</span> <span class="kd">val</span> <span class="py">mWeakReference</span><span class="p">:</span> <span class="nc">WeakReference</span><span class="p">&lt;</span><span class="nc">T</span><span class="p">&gt;</span> <span class="p">=</span> <span class="nc">WeakReference</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
+
+     <span class="k">companion</span> <span class="k">object</span> <span class="p">{</span>
+         <span class="cm">/**
+          * Message id for updating the time periodically in interactive mode.
+          */</span>
+         <span class="k">const</span> <span class="kd">val</span> <span class="py">MSG_UPDATE_TIME</span> <span class="p">=</span> <span class="mi">0</span>
+     <span class="p">}</span>
+
+     <span class="k">override</span> <span class="k">fun</span> <span class="nf">handleMessage</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">Message</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">mWeakReference</span><span class="p">.</span><span class="k">get</span><span class="p">()</span><span class="o">?.</span><span class="nf">let</span> <span class="p">{</span>
+             <span class="k">when</span> <span class="p">(</span><span class="n">msg</span><span class="p">.</span><span class="n">what</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="nc">MSG_UPDATE_TIME</span> <span class="p">-&gt;</span> <span class="n">it</span><span class="p">.</span><span class="nf">handleUpdateTimeMessage</span><span class="p">()</span>
+             <span class="p">}</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+ <span class="o">..</span><span class="p">.</span>
+ <span class="c1">// [WatchFaceService.WatchFaceEngine]</span>
+ <span class="cm">/**
+ * Handle updating the time periodically in interactive mode.
+ * INTERACTIVE_UPDATE_RATE_MS = 1000
+ */</span>
+ <span class="k">override</span> <span class="k">fun</span> <span class="nf">update</span><span class="p">()</span> <span class="p">{</span>
+     <span class="nf">invalidate</span><span class="p">()</span>
+     <span class="k">if</span> <span class="p">(</span><span class="nf">shouldTimerBeRunning</span><span class="p">())</span> <span class="p">{</span>
+         <span class="kd">val</span> <span class="py">timeMs</span> <span class="p">=</span> <span class="nc">System</span><span class="p">.</span><span class="nf">currentTimeMillis</span><span class="p">()</span>
+         <span class="kd">val</span> <span class="py">delayMs</span> <span class="p">=</span> <span class="nc">INTERACTIVE_UPDATE_RATE_MS</span> <span class="p">-</span> <span class="n">timeMs</span> <span class="p">%</span> <span class="nc">INTERACTIVE_UPDATE_RATE_MS</span>
+         <span class="n">updateTimeHandler</span><span class="p">.</span><span class="nf">sendEmptyMessageDelayed</span><span class="p">(</span><span class="nc">MSG_UPDATE_TIME</span><span class="p">,</span> <span class="n">delayMs</span><span class="p">)</span>
+     <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="watchfaceenginehandler">WatchFaceEngineHandler</h3>
+
+<p>In order to separate the <code class="language-plaintext highlighter-rouge">WatchFaceEngine</code> (event handler) from the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderer.kt"><code class="language-plaintext highlighter-rouge">WatchFaceRenderer.kt</code></a> (rendering handler), the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/service/WatchFaceEngineHandler.kt"><code class="language-plaintext highlighter-rouge">WatchFaceEngineHandler.kt</code></a> interface is used to surface and simplify the important events from the <code class="language-plaintext highlighter-rouge">WatchFaceEngine</code> to the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/service/WatchFaceService.kt"><code class="language-plaintext highlighter-rouge">WatchFaceService.kt</code></a> class, allowing implementations to be agnostic of the <code class="language-plaintext highlighter-rouge">WatchFaceEngine</code> lifecycle.</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">interface</span> <span class="nc">WatchFaceEngineHandler</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="py">inAmbientMode</span><span class="p">:</span> <span class="nc">Boolean</span>
+
+    <span class="k">fun</span> <span class="nf">engineCreated</span><span class="p">()</span>
+    <span class="k">fun</span> <span class="nf">updateProperties</span><span class="p">(</span><span class="n">lowBitAmbientStatus</span><span class="p">:</span> <span class="nc">Boolean</span><span class="p">,</span> <span class="n">isBurnInProtectionMode</span><span class="p">:</span> <span class="nc">Boolean</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">updateAmbientMode</span><span class="p">(</span><span class="n">inAmbientMode</span><span class="p">:</span> <span class="nc">Boolean</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">updateMuteMode</span><span class="p">(</span><span class="n">inMuteMode</span><span class="p">:</span> <span class="nc">Boolean</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">surfaceChanged</span><span class="p">(</span><span class="n">holder</span><span class="p">:</span> <span class="nc">SurfaceHolder</span><span class="p">,</span> <span class="n">format</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">render</span><span class="p">(</span><span class="n">canvas</span><span class="p">:</span> <span class="nc">Canvas</span><span class="p">,</span> <span class="n">bounds</span><span class="p">:</span> <span class="nc">Rect</span><span class="p">?,</span> <span class="n">time</span><span class="p">:</span> <span class="nc">Long</span><span class="p">)</span>
+    <span class="k">fun</span> <span class="nf">updateComplications</span><span class="p">(</span><span class="n">watchFaceComplicationId</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nc">ComplicationData</span><span class="p">?)</span>
+    <span class="k">fun</span> <span class="nf">setTimeZone</span><span class="p">(</span><span class="n">timeZone</span><span class="p">:</span> <span class="nc">TimeZone</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/service/WatchFaceService.kt"><code class="language-plaintext highlighter-rouge">WatchFaceService.kt</code></a> class is able communicate events to the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderable.kt">renderable components</a>, which are both watch faces and <a href="#a-small-note-on-complications">complications</a>. This is why <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderer.kt">WatchFaceRenderer.kt</a> which implements <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderable.kt">WatchFaceRenderable</a> rather than being one class.</p>
+
+<h3 id="a-small-note-on-complications">A small note on complications</h3>
+
+<p>The discussion has naturally tended towards the next logical step in the journey to complete an Android Wear OS watch face: complications. This section aims to be a brief teaser to the concept, which will be covered in more detail in part 3.</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="k">abstract</span> <span class="kd">class</span> <span class="nc">WatchFaceRenderable</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="py">currentTime</span><span class="p">:</span> <span class="nc">Calendar</span>
+    <span class="kd">var</span> <span class="py">invalidate</span><span class="p">:</span> <span class="p">(()</span> <span class="p">-&gt;</span> <span class="nc">Unit</span><span class="p">)?</span>
+    <span class="kd">var</span> <span class="py">screenSettings</span><span class="p">:</span> <span class="nc">WatchScreenSettings</span>
+    <span class="k">fun</span> <span class="nf">setTimeZone</span><span class="p">(</span><span class="n">timeZone</span><span class="p">:</span> <span class="nc">TimeZone</span><span class="p">)</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+
+    <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">render</span><span class="p">(</span><span class="n">canvas</span><span class="p">:</span> <span class="nc">Canvas</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nc">Long</span><span class="p">)</span>
+    <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">initialise</span><span class="p">()</span>
+    <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">updateStyle</span><span class="p">()</span>
+    <span class="k">abstract</span> <span class="k">fun</span> <span class="nf">surfaceChanged</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>As can be seen from the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchFaceRenderable.kt"><code class="language-plaintext highlighter-rouge">WatchFaceRenderable.kt</code></a> abstract class, all these methods relate to the rendering of the watch face <strong>in addition to</strong> any other visual components, such as <a href="https://developer.android.com/training/wearables/watch-faces/complications"><strong>complications</strong></a>. While these elements will be the particular focus of a subsequent article, complications are defined as follows:</p>
+
+<blockquote>
+  <p>A complication is any feature in a watch face that is displayed in addition to time. For example, a battery indicator is a complication. The Complications API is for both watch faces and data provider apps.</p>
+</blockquote>
+
+<p>A watch face <a href="https://en.wikipedia.org/wiki/Complication_(horology)#:~:text=In%20horology%2C%20a%20complication%20refers,known%20as%20a%20simple%20movement.">complication</a> is a traditional <a href="https://en.wikipedia.org/wiki/Horology#:~:text=Horology%20(%22the%20study%20of%20time,of%20the%20measurement%20of%20time.">horological</a> term for an element displayed on the face that goes beyond of the concept of hours, minutes and seconds. These are the smaller screen elements that display something else that may interest the user, such as steps, light bulb status or calendar events.</p>
+

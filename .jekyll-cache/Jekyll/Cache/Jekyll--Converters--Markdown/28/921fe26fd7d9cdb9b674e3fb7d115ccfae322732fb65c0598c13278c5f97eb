@@ -1,0 +1,77 @@
+I"'<p>This part of the series was the most difficult for me. The concepts behind complications are incredibly tied to the Android ecosystem, and specifically the Wear OS framework. I have done my best at all times to separate the <strong>rendering</strong> elements from the <strong>watch</strong> specific components.</p>
+
+<p>A Watch Face complication, as mentioned in Part 2, is a horological term that refers to a part of a watch face that is not concerned with hours, minutes and seconds. These elements are more complex in the information age, because they could be <strong>anything</strong>. This last article is not concerned with the data that is provided to the complication, but rather the element that uses existing <a href="https://developer.android.com/training/wearables/watch-faces/complications#:~:text=Apps%20that%20provide%20data%20(such,rendered%20on%20a%20watch%20face.">complication data providers</a> to render information on the watch face.</p>
+
+<canvas id="complications-uml" class="nomnoml"></canvas>
+<script>
+    var source = "\
+    [<abstract>WatchComplicationsRenderer];\
+    [<abstract>ComplicationDataSource];\
+    [<abstract>WatchFaceRenderer];\
+    [<abstract>WatchFaceRenderable];\
+    [WatchScreenSettings];\
+    [<abstract>WatchFaceRenderable]<:--[<abstract>WatchFaceRenderer];\
+    [<abstract>WatchFaceRenderable]<:--[<abstract>WatchComplicationsRenderer];\
+    [<abstract>WatchFaceRenderable]+-[<abstract>WatchScreenSettings];\
+    [<abstract>WatchComplicationsRenderer]+-[<abstract>ComplicationDataSource]";
+
+    showGraph("complications-uml", source);
+</script>
+
+<p>The <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/ComplicationDataSource.kt"><code class="language-plaintext highlighter-rouge">ComplicationDataSource.kt</code></a> class associates the data that should be rendered with the element that is drawn on the screen. Data to be rendered is collected by the  <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/complication/ComplicatedWatchFaceService.kt"><code class="language-plaintext highlighter-rouge">ComplicatedWatchFaceService.kt</code></a> and updates the rendering element. However the positioning of the elements on the screen are handled separately by the implementation of the <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/WatchComplicationsRenderer.kt"><code class="language-plaintext highlighter-rouge">ComplicationsRenderer</code></a>, the example can be found in <a href="https://github.com/qbalsdon/wearOS/blob/main/watchfacerenderer/src/main/java/com/balsdon/watchfacerenderer/example/ExampleWatchComplicationRenderer.kt"><code class="language-plaintext highlighter-rouge">ExampleWatchComplicationRenderer.kt</code></a>:</p>
+
+<figure class="highlight"><pre><code class="language-kotlin" data-lang="kotlin"><span class="kd">class</span> <span class="nc">ExampleWatchComplicationRenderer</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="nc">Context</span><span class="p">)</span> <span class="p">:</span> <span class="nc">WatchComplicationsRenderer</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">companion</span> <span class="k">object</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="kd">val</span> <span class="py">LEFT_COMPLICATION_ID</span> <span class="p">=</span> <span class="mi">0</span>
+        <span class="k">const</span> <span class="kd">val</span> <span class="py">RIGHT_COMPLICATION_ID</span> <span class="p">=</span> <span class="mi">1</span>
+
+        <span class="kd">val</span> <span class="py">complicationsList</span> <span class="p">=</span> <span class="nf">intArrayOf</span><span class="p">(</span>
+            <span class="nc">LEFT_COMPLICATION_ID</span><span class="p">,</span>
+            <span class="nc">RIGHT_COMPLICATION_ID</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="kd">val</span> <span class="py">complicationIdList</span><span class="p">:</span> <span class="nc">IntArray</span>
+        <span class="k">get</span><span class="p">()</span> <span class="p">=</span> <span class="n">complicationsList</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">updateStyle</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">dataSource</span><span class="p">.</span><span class="nf">updateStyle</span><span class="p">(</span><span class="n">screenSettings</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">override</span> <span class="k">fun</span> <span class="nf">surfaceChanged</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="py">sizeOfComplication</span> <span class="p">=</span> <span class="n">width</span> <span class="p">/</span> <span class="mi">4</span>
+        <span class="kd">val</span> <span class="py">midpointOfScreen</span> <span class="p">=</span> <span class="n">width</span> <span class="p">/</span> <span class="mi">2</span>
+
+        <span class="kd">val</span> <span class="py">horizontalOffset</span> <span class="p">=</span> <span class="p">(</span><span class="n">midpointOfScreen</span> <span class="p">-</span> <span class="n">sizeOfComplication</span><span class="p">)</span> <span class="p">/</span> <span class="mi">2</span>
+        <span class="kd">val</span> <span class="py">verticalOffset</span> <span class="p">=</span> <span class="n">midpointOfScreen</span> <span class="p">-</span> <span class="n">sizeOfComplication</span> <span class="p">/</span> <span class="mi">2</span>
+
+        <span class="kd">val</span> <span class="py">leftBounds</span> <span class="p">=</span>  <span class="c1">// Left, Top, Right, Bottom</span>
+            <span class="nc">Rect</span><span class="p">(</span>
+                <span class="n">horizontalOffset</span><span class="p">,</span>
+                <span class="n">verticalOffset</span><span class="p">,</span>
+                <span class="n">horizontalOffset</span> <span class="p">+</span> <span class="n">sizeOfComplication</span><span class="p">,</span>
+                <span class="n">verticalOffset</span> <span class="p">+</span> <span class="n">sizeOfComplication</span>
+            <span class="p">)</span>
+
+        <span class="kd">val</span> <span class="py">rightBounds</span> <span class="p">=</span>  <span class="c1">// Left, Top, Right, Bottom</span>
+            <span class="nc">Rect</span><span class="p">(</span>
+                <span class="n">midpointOfScreen</span> <span class="p">+</span> <span class="n">horizontalOffset</span><span class="p">,</span>
+                <span class="n">verticalOffset</span><span class="p">,</span>
+                <span class="n">midpointOfScreen</span> <span class="p">+</span> <span class="n">horizontalOffset</span> <span class="p">+</span> <span class="n">sizeOfComplication</span><span class="p">,</span>
+                <span class="n">verticalOffset</span> <span class="p">+</span> <span class="n">sizeOfComplication</span>
+            <span class="p">)</span>
+
+        <span class="n">dataSource</span><span class="p">.</span><span class="n">complicationDrawableList</span><span class="p">.</span><span class="nf">apply</span> <span class="p">{</span>
+            <span class="k">get</span><span class="p">(</span><span class="nc">LEFT_COMPLICATION_ID</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">bounds</span> <span class="p">=</span> <span class="n">leftBounds</span>
+            <span class="k">get</span><span class="p">(</span><span class="nc">RIGHT_COMPLICATION_ID</span><span class="p">)</span>
+                <span class="p">.</span><span class="n">bounds</span> <span class="p">=</span> <span class="n">rightBounds</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The advantage of separation of rendering from specific data proves vital for the <code class="language-plaintext highlighter-rouge">harness</code> so that a dummy data source (<a href="https://github.com/qbalsdon/wearOS/blob/main/harness/src/main/java/com/balsdon/harness/ui/view/DrawableComplicationDataSource.kt"><code class="language-plaintext highlighter-rouge">DrawableComplicationDataSource.kt</code></a>) can be provided in order to render the complications on the <a href="https://github.com/qbalsdon/wearOS/blob/main/harness/src/main/java/com/balsdon/harness/ui/view/WatchFaceView.kt"><code class="language-plaintext highlighter-rouge">WatchFaceView.kt</code></a>. Once again, this abstraction in the Wear OS Watch Face itself means that the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/complication/ComplicatedWatchFaceService.kt"><code class="language-plaintext highlighter-rouge">ComplicatedWatchFaceService.kt</code></a> only concerns itself with the specific lifecycle attributed with complications.</p>
+
+<p>I strongly recommend going through <a href="https://developer.android.com/codelabs/complications#0">Google’s CodeLab on Wear OS watch face complications</a> and start making watch faces. It’s also advisable to go through the <a href="https://github.com/qbalsdon/wearOS/blob/main/app/src/main/java/com/balsdon/watchapplication/complication/activity/ExampleComplicationConfigActivity.kt">activity code</a> to see the manner in which a user can select which complication gets rendered on the screen.</p>
+
+:ET
