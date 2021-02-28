@@ -8,6 +8,8 @@ comments_id: 14
 
 So in my latest project I wanted to get an RGB rotary encoder for my Pico running CircuitPython. The reason for using CircuitPython is that I am creating a specific piece of hardware in which the library I cannot (or dare not) re-write. I want to make a [Human Interface Device (HID)][HUMAN_INTERFACE_DEVICE] using the [Raspberry Pi Pico][RASPBERRY_PICO] and the only solid library I can find is the one by [Adafruit][ADAFRUIT_HID]. This fundamental decision means that any hardware with which I intend to interface then requires that I use libraries in CircuitPython, or C++.
 
+[![alt text][IMAGE_STOCK_RGB_ROTARY_ENCODER]][SPARKFUN_STORE]
+
 # Getting to know the hardware
 
 It's really important to read the [datasheet][RGB_ROTARY_ENCODER_DATASHEET] for the electronics with which you are going to be playing. While this one is not great, it at least provides clues about the hardware that allow users to know a few things. This hardware includes:
@@ -15,7 +17,7 @@ It's really important to read the [datasheet][RGB_ROTARY_ENCODER_DATASHEET] for 
 1. a push-button switch
 1. a rotary encoder (phew)
 
-In my mind, these seemed to be the list in order of complexity, and I couldn't have been more wrong. Having played with common **cathode** RGB led's I was left utterly confused. It took me the better part of a day to figure it out. The most annoying part is an absolute lack of a pin out. While it it seemingly obvious to others, it's not obvious to me.
+In my mind, these seemed to be the list in order from easiest to hardest... I was wrong. Having played with common **cathode** RGB led's I was left utterly confused. It took me the better part of a day to figure it out. The most annoying part is an absolute lack of a pin out. While it it seemingly obvious to others, it's not obvious to me.
 
 ![alt text][IMAGE_ROTARY ENCODER]
 
@@ -255,6 +257,10 @@ I am not great at figuring out the wiring of stuff, and I have not had the most 
 [IMAGE_RGB_ROTARY_ENCODER_PINOUT]: /images/pico_rgb_rotary_encoder.png "Pinout"
 [IMAGE_RGB_ROTARY_ENCODER_COMPLETE_PINOUT]: /images/pico_rgb_rotary_encoder_full.png "Pinout"
 [GIF_WITH_MY_FAT_FINGERS]: /images/pico_rgb_rotary.gif "WEEEEEEEEEEE!"
+[IMAGE_STOCK_RGB_ROTARY_ENCODER]: https://cdn.sparkfun.com//assets/parts/1/3/5/2/8/15141-Rotary_Encoder_-_Illuminated__RGB_-01.jpg "Rotary Encoder - Illuminated (RGB)"
+{: height="250px"}
+[SPARKFUN_STORE]: https://www.sparkfun.com/products/15141
+
 <!--
 {% highlight python %}
 {% endhighlight %}
