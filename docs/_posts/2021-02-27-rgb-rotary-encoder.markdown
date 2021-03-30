@@ -3,7 +3,7 @@ layout: post
 title:  "RGB Rotary Encoder in CircuitPython for Raspberry Pico"
 date:   2021-02-27 00:00:00 +0000
 categories: CircuitPython Rotary-Encoder Python LED
-comments_id: 14
+comments_id: 15
 ---
 
 So in my latest project I wanted to get an RGB rotary encoder for my Pico running CircuitPython. The reason for using CircuitPython is that I am creating a specific piece of hardware in which the library I cannot (or dare not) re-write. I want to make a [Human Interface Device (HID)][HUMAN_INTERFACE_DEVICE] using the [Raspberry Pi Pico][RASPBERRY_PICO] and the only solid library I can find is the one by [Adafruit][ADAFRUIT_HID]. This fundamental decision means that any hardware with which I intend to interface then requires that I use libraries in CircuitPython, or C++.
@@ -118,7 +118,7 @@ Key event management can be a lot more complex, but a simple digital read is goo
 
 # Raspberry Pico CircuitPython rotary encoder
 
-I had to roll my own since the [rotaryio library][ADAFRUIT_ROTARYIO] does not work with Pico CircuitPython, presumably because either there is no [pulseio library][PULSEIO_NOT_AVAILABLE], or because of analog pin management. In any event, I found the ["blindr tutorial"][TUTORIAL_BLINDR] very useful in getting something to work, but converting the version at [Hobbytronics][TUTORIAL_HOBBYTRONICS] much simpler
+I had to roll my own since the ~[rotaryio library][ADAFRUIT_ROTARYIO] does not work with Pico CircuitPython, presumably because either there is no [pulseio library][PULSEIO_NOT_AVAILABLE], or because of analog pin management~ ([it does work now, in the 6.2.0-beta4 release][DOC_CP_6_2_0_BETA4]). In any event, I found the ["blindr tutorial"][TUTORIAL_BLINDR] very useful in getting something to work, but converting the version at [Hobbytronics][TUTORIAL_HOBBYTRONICS] much simpler
 
 ### Wiring
 
@@ -260,7 +260,7 @@ I am not great at figuring out the wiring of stuff, and I have not had the most 
 [IMAGE_STOCK_RGB_ROTARY_ENCODER]: https://cdn.sparkfun.com//assets/parts/1/3/5/2/8/15141-Rotary_Encoder_-_Illuminated__RGB_-01.jpg "Rotary Encoder - Illuminated (RGB)"
 {: height="250px"}
 [SPARKFUN_STORE]: https://www.sparkfun.com/products/15141
-
+[DOC_CP_6_2_0_BETA4]: https://blog.adafruit.com/2021/03/18/circuitpython-6-2-0-beta-4-released/
 <!--
 {% highlight python %}
 {% endhighlight %}
