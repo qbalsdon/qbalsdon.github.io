@@ -21,7 +21,7 @@ I have come to the conclusion that there are 2 layers of input on Android. They 
 
 I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
 
-The shorter part of the answer is that this is possible to do, but it's relatively involved, which is annoying. You can't perform an accessibility action via ADB, you would have to create an [Accessibility service][2] in order to [act on behalf of an Accessibility user][3] and create a [Broadcast Receiver][4] so that it can take input via the ADB. This sounds like the answer, but there is one problem: You cannot activate accessibility services via the ADB! This has to be done manually **each time accessibility is toggled** or through [**accessibility shortcuts**][5] - of which there can be only one.
+The shorter part of the answer is that this is possible to do, but it's relatively involved, which is annoying. You can't perform an accessibility action via ADB, you would have to create an [Accessibility service][2] in order to [act on behalf of an Accessibility user][3] and create a [Broadcast Receiver][4] so that it can take input via the ADB.
 
 ### Broadcast service: responding to ADB events
 
