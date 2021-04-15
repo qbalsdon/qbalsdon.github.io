@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Android Accessibility Actions using the Android Debug Bridge"
-date:   2021-03-30 00:00:01 +0000
+date:   2021-04-15 00:00:01 +0000
 categories: Android Kotlin Accessibility ADB
 comments_id: 14
 ---
@@ -34,17 +34,18 @@ A [broadcast receiver][4] cannot exist in isolation, running all the time, it ha
 The receiver that was implemented can take intents from other apps, as well as the ADB.
 
 {% highlight bash %}
-adb shell am broadcast -a com.balsdon.talkback.accessibility
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_NEXT"
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_PREV"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_HEADING_NEXT"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_HEADING_PREV"
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_UP"
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_DOWN"
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_SET" --ei PARAMETER_VOLUME 20
 {% endhighlight %}
 
-These are the commands I that I find the most tedious while working with accessibility - and I think the ability to control the volume was one of the better features. I find that the volume of the voice can sometimes be quite disruptive.
+These are some of the commands I that I find the most tedious while working with accessibility - and I think the ability to control the volume was one of the better features. I find that the volume of the voice can sometimes be quite disruptive.
+
+> #### Super important caveat!
+
+> I am debating whether to name these by their **gesture** as opposed to by the OUTCOME as at the moment all my accessibility service can do is perform certain (not ALL!) gestures on behalf of the user. It's import to note this as if your default gestures are different to mine, or you have set up different gestures, your experience will be different to mine. This could even just be a result of us using different devices.
 
 The receiver achieves this in the following manner:
 {% highlight kotlin %}
@@ -58,14 +59,11 @@ override fun onReceive(context: Context?, intent: Intent?) {
         log("AccessibilityActionReceiver", "  ~~> PARAMETER: [$it]")
         serviceReference.apply {
             when (it) {
-                ACTION_MENU -> swipeUpLeft() // currently not working
                 ACTION_WHAT -> findFocusedViewInfo()
                 ACTION_PREV -> swipeHorizontal(false)
                 ACTION_VOLUME_SET -> setVolume(intent.getIntExtra(PARAMETER_VOLUME, 10))
                 ACTION_VOLUME_UP -> adjustVolume(true)
                 ACTION_VOLUME_DOWN -> adjustVolume(false)
-                ACTION_HEADING_NEXT -> swipeVertical(true)
-                ACTION_HEADING_PREV -> swipeVertical(false)
                 //default is just next
                 else -> swipeHorizontal(true)
             }
@@ -87,11 +85,11 @@ adb -s $DEVICE shell input tap $POS
 
 The [Google documentation][2] defends the creation of an accessibility service in the following manner:
 
-> An accessibility service is an application that provides user interface enhancements to assist users with disabilities, or who may temporarily be unable to fully interact with a device. For example, users who are driving, taking care of a young child or attending a very loud party might need additional or alternative interface feedback.<a href="#note1"><sup>1</sup></a>
+> An accessibility service is an application that provides user interface enhancements to assist users with disabilities, or who may temporarily be unable to fully interact with a device. For example, users who are driving, taking care of a young child or attending a very loud party might need additional or alternative interface feedback.
 
 There is a Google codelab which takes developers through a journey of explaining the different elements of an accessibility service. The highlights are:
 
-  - The service implements the [`AccessibilityService`][8] class and implementsthe `onServiceConnected` method. This is where the our receiver is registered
+  - The service implements the [`AccessibilityService`][8] class and implements the `onServiceConnected` method. This is where the our receiver is registered
 {% highlight kotlin %}
 override fun onServiceConnected() {
       registerReceiver(accessibilityActionReceiver, IntentFilter().apply {
@@ -123,19 +121,32 @@ override fun onServiceConnected() {
     android:canRetrieveWindowContent="true"
     />
   {% endhighlight %}
+
 This is enough to get the code to be registered as an Accessibility service. It will appear as such inside `Settings -> [Smart Assistance] -> Accessibility` In order to set it up as the accessibility shortcut (on my device, by pressing the VOLUME_UP and VOLUME_DOWN button for 3 seconds), follow the `Accessibility shortcut` menu and choose "Accessibility Broadcast Dev" under `Select feature`
 
 ![alt text][IMAGE_1] | ![alt text][IMAGE_2]
 
-The last element is to enable Talkback and the feature at the same time. Currently the way this works is that the service is deactivated whenever Talkback is toggled. This is frustrating as it feels like it's taking me back right to the beginning of the problem. I JUST want to send accessibility key presses via ADB. However now I have everything, except the ability to turn it on automatically. Thankfully this is covered in my [previous post][10].
+The last element is to enable Talkback and the feature at the same time. In my [previous post][10] I utilised a mechanism for saving particular key presses via the memory buffer. As "fun" as this is I think it would be more reliable to make the accessibility service "stick" when I toggle it. Thankfully this is possible to do, as when an accessibility service exists on a device, more than one can be toggled at a time by delimiting them with ":". In my origin Talkback toggle script I had:
+
+```
+$VALUE_ON="com.google.android.marvin.talkback/com.android.talkback.TalkBackPreferencesActivity"
+
+adb shell settings put secure enabled_accessibility_services $VALUE_ON
+```
+
+and to start multiple services:
+
+```
+TALKBACK="com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService"
+ALLYSERVICE="com.balsdon.AccessibilityDeveloperService/.AccessibilityDeveloperService"
+VALUE_ON="$TALKBACK:$ALLYSERVICE"
+
+adb shell settings put secure enabled_accessibility_services $VALUE_ON
+```
 
 <!-- ![alt text][IMAGE_0] -->
 [IMAGE_1]: /images/accessibility_service_01.png "Settings -> [Smart Assistance] -> Accessibility"
 [IMAGE_2]: /images/accessibility_service_02.png "Settings -> [Smart Assistance] -> Accessibility -> Accessibility shortcut"
-
-#### Notes
-
-<a name="note1"><sup>1</sup></a>I think that services should be marked as "sticky" or "non-sticky" so that when accessibility is toggled, the USER has the option of whether a service is automatically enabled when Talkback is toggled. Having to add a further command just to enable the accessibility service feels rather like a hack. It also means users would have to occupy the accessibility shortcut on their device, which is a severely limited resource.
 
 
   [1]: https://developer.android.com/guide/topics/ui/accessibility/service#focus-types
@@ -148,6 +159,7 @@ The last element is to enable Talkback and the feature at the same time. Current
   [8]: https://developer.android.com/reference/android/accessibilityservice/AccessibilityService
   [9]: https://github.com/qbalsdon/accessibility_broadcast_dev
   [10]: https://qbalsdon.github.io/android/scripting/key-press/automation/2021/03/30/recording-key-presses.html
+  [11]: https://github.com/qbalsdon/talos/blob/main/scripts/talkback
 <!--
 {% highlight python %}
 {% endhighlight %}

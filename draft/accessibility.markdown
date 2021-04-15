@@ -27,6 +27,9 @@ ignore any element in the SDLC at design time and you risk having enormous fixes
 Accessibility as a concept is less popular than the least popular language on SO
 https://insights.stackoverflow.com/trends?tags=accessibility%2Cjulia
 
+"It's not about designing for disabilities - it's about designing for all users"
+
+
 Respect our end users - passive exclusion
 Inclusion of differently abled
 More than just a minimum legal requirement
