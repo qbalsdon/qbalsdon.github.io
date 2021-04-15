@@ -15,13 +15,15 @@ The answer will need have three parts in order to be considered complete:
 
 [The code for this can be accessed here.][9]
 
+## tl;dr Why?
+
+It could be argued that plugging in a keyboard and using the [Switch Access][12] feature to navigate with accessibility can achieve the same goal with much less effort. In most user-oriented cases that would be a fair assessment. However, as a developer / automation tester, my device is normally plugged into my computer so that I can debug the code that I am currently writing, and it becomes tedious and diminishes focus if I constantly have to be changing cables, devices etc.
+
 ## Understanding Accessibility on Android
 
-I have come to the conclusion that there are 2 layers of input on Android. They are the "input" layer and the "accessibility" layer. When you type on the keyboard, perform swipe gestures, these actions are performed on the regular layer. Some actions may get passed on to the accessibility layer, when it's enabled. However actions performed by the ADB input actions are NEVER passed to this layer. This is why simply recording a keyboard action and playing it back does not appear to work.
+I have come to the conclusion that there are 2 layers of input on Android. They are the "input" layer and the "accessibility" layer. When you type on the keyboard, perform swipe gestures, these actions are performed on the input layer. Some actions may get passed on to the accessibility layer, when it's enabled. However actions performed by the ADB input actions are NEVER (in my experience) passed to this layer. This would explain why `adb shell input ...` or simply recording a keyboard action and playing it back does not appear to work well with Talkback. I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
 
-I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
-
-The shorter part of the answer is that this is possible to do, but it's relatively involved, which is annoying. You can't perform an accessibility action via ADB, you would have to create an [Accessibility service][2] in order to [act on behalf of an Accessibility user][3] and create a [Broadcast Receiver][4] so that it can take input via the ADB.
+The shorter part of the answer is that this is possible to do, but it's relatively involved, which is annoying. You can't perform an accessibility action via ADB, you would have to create an [Accessibility service][2] in order to [act on behalf of an Accessibility user][3] and create a [Broadcast Receiver][4] so that it can take input via the ADB. And so I did.
 
 ### Broadcast service: responding to ADB events
 
@@ -45,7 +47,7 @@ These are some of the commands I that I find the most tedious while working with
 
 > #### Super important caveat!
 
-> I am debating whether to name these by their **gesture** as opposed to by the OUTCOME as at the moment all my accessibility service can do is perform certain (not ALL!) gestures on behalf of the user. It's import to note this as if your default gestures are different to mine, or you have set up different gestures, your experience will be different to mine. This could even just be a result of us using different devices.
+> I am debating whether to name these by their **gesture** as opposed to by the OUTCOME as at the moment all my accessibility service can do is perform certain (not ALL!) gestures on behalf of the user. It's import to note this as if your default gestures are different to mine, or you have set up different gestures, your experience will be different to mine. This could even just be a result of us using different devices. I am keeping the convention I have for the moment as I would like to explore getting the behaviour right irrespective of the gesture that is used to achieve it.
 
 The receiver achieves this in the following manner:
 {% highlight kotlin %}
@@ -98,7 +100,9 @@ override fun onServiceConnected() {
       })
   }
 {% endhighlight %}
-  - Maifest registration
+
+  - Manifest registration
+
   {% highlight XML %}
   <service
       android:name="com.balsdon.accessibilityBroadcastService.AccessibilityBroadcastService"
@@ -112,7 +116,9 @@ override fun onServiceConnected() {
           android:resource="@xml/accessibility_service_config" />
   </service>
   {% endhighlight %}
+
   - XML Configuration
+
   {% highlight XML %}
   <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
     android:accessibilityFeedbackType="feedbackGeneric"
@@ -122,27 +128,29 @@ override fun onServiceConnected() {
     />
   {% endhighlight %}
 
-This is enough to get the code to be registered as an Accessibility service. It will appear as such inside `Settings -> [Smart Assistance] -> Accessibility` In order to set it up as the accessibility shortcut (on my device, by pressing the VOLUME_UP and VOLUME_DOWN button for 3 seconds), follow the `Accessibility shortcut` menu and choose "Accessibility Broadcast Dev" under `Select feature`
+This is enough to get the code to be registered as an Accessibility service. It will appear as such inside `Settings -> [Smart Assistance] -> Accessibility` In order to set it up as the accessibility shortcut (on my device, by pressing the VOLUME_UP and VOLUME_DOWN button for 3 seconds), follow the `Accessibility shortcut` menu and choose "Accessibility Broadcast Dev" under `Select feature` - However it is not necessary to set it up as a shortcut.
 
 ![alt text][IMAGE_1] | ![alt text][IMAGE_2]
 
 The last element is to enable Talkback and the feature at the same time. In my [previous post][10] I utilised a mechanism for saving particular key presses via the memory buffer. As "fun" as this is I think it would be more reliable to make the accessibility service "stick" when I toggle it. Thankfully this is possible to do, as when an accessibility service exists on a device, more than one can be toggled at a time by delimiting them with ":". In my origin Talkback toggle script I had:
 
-```
+{% highlight bash %}
 $VALUE_ON="com.google.android.marvin.talkback/com.android.talkback.TalkBackPreferencesActivity"
 
 adb shell settings put secure enabled_accessibility_services $VALUE_ON
-```
+{% endhighlight %}
 
 and to start multiple services:
 
-```
+{% highlight bash %}
 TALKBACK="com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService"
 ALLYSERVICE="com.balsdon.AccessibilityDeveloperService/.AccessibilityDeveloperService"
 VALUE_ON="$TALKBACK:$ALLYSERVICE"
 
 adb shell settings put secure enabled_accessibility_services $VALUE_ON
-```
+{% endhighlight %}
+
+And there you go! This is a more granular approach to navigation of a device in accessibility mode for developers. I hope that it will help all sorts of people, as it could be used in automation testing or even remote control.
 
 <!-- ![alt text][IMAGE_0] -->
 [IMAGE_1]: /images/accessibility_service_01.png "Settings -> [Smart Assistance] -> Accessibility"
@@ -160,6 +168,7 @@ adb shell settings put secure enabled_accessibility_services $VALUE_ON
   [9]: https://github.com/qbalsdon/accessibility_broadcast_dev
   [10]: https://qbalsdon.github.io/android/scripting/key-press/automation/2021/03/30/recording-key-presses.html
   [11]: https://github.com/qbalsdon/talos/blob/main/scripts/talkback
+  [12]: https://support.google.com/accessibility/android/answer/6122836
 <!--
 {% highlight python %}
 {% endhighlight %}
