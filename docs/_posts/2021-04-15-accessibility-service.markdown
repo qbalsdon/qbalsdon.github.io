@@ -23,6 +23,18 @@ It could be argued that plugging in a keyboard and using the [Switch Access][12]
 
 After a brief look into [Switch Access][12] I did find that the volume keys can navigate the app, but it does not work with `adb shell input keyevent KEYCODE_VOLUME_[DOWN | UP]` - which is unfortunate. While Google has expressly stated this option is [intended for developers][13] I found it cumbersome in that is adjusts the volume streams in addition to navigation, and not a solution as the ADB instructions are ignored.
 
+So switch access doesn't work, the next real question is "Why didn't the talkback team give us these controls elsewhere?" Great question, I have been scouring for a good answer to this. I think it has to do with the [**ABSOLUTELY UNDENIABLE FACT THAT MANAGING FOCUS IS AN ACCESSIBILITY ANTI-PATTERN**][14] as Qasid Sadiq puts it so eloquently:
+
+> So something similar that people like to do is manage accessibility focus themselves. And again, this is a bad idea. accessibility focus has to be determined by the accessibility service, and just like announcements this creates an inconsistency in experience. And actually, that one of the biggest issues that accessibility users face, inconsistency, across applications and over time.
+>
+> You see, there are a lot of applications, and if you as an app developer decide to break with the paradigms of accessibility interaction from the rest of the system, you're making your users' lives frustrating, cause now that accessibility user, every time they open your application, they've got to throw out all of their expectations in terms of how their interaction works. And they've got to relearn this whole new UI at a very fundamental level.
+>
+> So the best thing you can do for your accessibility user is to maintain consistency over time and with a system.
+>
+> __[ - Qasid Sadiq, Google I/O 19 "Demystifying Android Accessibility development"][14]__
+
+This is probably why there is no API for focus navigation on a programmable level. While I understand their goal in curbing abuse of that system, I do not believe my goals have ever been to create a hack on behalf of someone else, but rather to make the automation and developer interaction with these systems much easier and ... well ... accessible.
+
 ## Understanding Accessibility on Android
 
 I have come to the conclusion that there are 2 layers of input on Android. They are the "input" layer and the "accessibility" layer. When you type on the keyboard, perform swipe gestures, these actions are performed on the input layer. Some actions may get passed on to the accessibility layer, when it's enabled. However actions performed by the ADB input actions are NEVER (in my experience) passed to this layer. This would explain why `adb shell input ...` or simply recording a keyboard action and playing it back does not appear to work well with Talkback. I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
@@ -180,6 +192,7 @@ And there you go! This is a more granular approach to navigation of a device in 
   [11]: https://github.com/qbalsdon/talos/blob/main/scripts/talkback
   [12]: https://support.google.com/accessibility/android/answer/6122836
   [13]: https://support.google.com/accessibility/android/answer/6122836?hl=en
+  [14]: https://youtu.be/bTodlNvQGfY?t=1017
 <!--
 {% highlight python %}
 {% endhighlight %}
