@@ -19,6 +19,10 @@ The answer will need have three parts in order to be considered complete:
 
 It could be argued that plugging in a keyboard and using the [Switch Access][12] feature to navigate with accessibility can achieve the same goal with much less effort. In most user-oriented cases that would be a fair assessment. However, as a developer / automation tester, my device is normally plugged into my computer so that I can debug the code that I am currently writing, and it becomes tedious and diminishes focus if I constantly have to be changing cables, devices etc.
 
+![alt text][IMAGE_3] | ![alt text][IMAGE_4] | ![alt text][IMAGE_5] |
+
+After a brief look into [Switch Access][12] I did find that the volume keys can navigate the app, but it does not work with `adb shell input keyevent KEYCODE_VOLUME_[DOWN | UP]` - which is unfortunate. While Google has expressly stated this option is [intended for developers][13] I found it cumbersome in that is adjusts the volume streams in addition to navigation, and not a solution as the ADB instructions are ignored.
+
 ## Understanding Accessibility on Android
 
 I have come to the conclusion that there are 2 layers of input on Android. They are the "input" layer and the "accessibility" layer. When you type on the keyboard, perform swipe gestures, these actions are performed on the input layer. Some actions may get passed on to the accessibility layer, when it's enabled. However actions performed by the ADB input actions are NEVER (in my experience) passed to this layer. This would explain why `adb shell input ...` or simply recording a keyboard action and playing it back does not appear to work well with Talkback. I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
@@ -155,6 +159,12 @@ And there you go! This is a more granular approach to navigation of a device in 
 <!-- ![alt text][IMAGE_0] -->
 [IMAGE_1]: /images/accessibility_service_01.png "Settings -> [Smart Assistance] -> Accessibility"
 [IMAGE_2]: /images/accessibility_service_02.png "Settings -> [Smart Assistance] -> Accessibility -> Accessibility shortcut"
+[IMAGE_3]: /images/accessibility_service_03.png "Switch Access"
+{: width="400px"}
+[IMAGE_4]: /images/accessibility_service_04.png "Switch Access"
+{: width="400px"}
+[IMAGE_5]: /images/accessibility_service_05.gif "Switch Access Usage"
+{: width="400px"}
 
 
   [1]: https://developer.android.com/guide/topics/ui/accessibility/service#focus-types
@@ -169,6 +179,7 @@ And there you go! This is a more granular approach to navigation of a device in 
   [10]: https://qbalsdon.github.io/android/scripting/key-press/automation/2021/03/30/recording-key-presses.html
   [11]: https://github.com/qbalsdon/talos/blob/main/scripts/talkback
   [12]: https://support.google.com/accessibility/android/answer/6122836
+  [13]: https://support.google.com/accessibility/android/answer/6122836?hl=en
 <!--
 {% highlight python %}
 {% endhighlight %}
