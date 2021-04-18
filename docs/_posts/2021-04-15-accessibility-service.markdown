@@ -117,7 +117,7 @@ adb -s $DEVICE shell input tap $POS
       nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
     }
   }
-{% highlight kotlin %}
+{% endhighlight %}
 
 ### Accessibility service: Acting on behalf of the user
 
@@ -217,6 +217,3 @@ And there you go! This is a more granular approach to navigation of a device in 
   [16]: https://github.com/Genymobile/scrcpy
   [17]: https://issuetracker.google.com/issues/185546073
   [18]: https://codelabs.developers.google.com/codelabs/developing-android-a11y-service?hl=th#0
-{% highlight python %}
-{% endhighlight %}
--->
