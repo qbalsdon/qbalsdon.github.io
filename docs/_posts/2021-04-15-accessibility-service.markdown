@@ -33,7 +33,7 @@ So switch access doesn't work, the next real question is "Why didn't the talkbac
 >
 > __[ - Qasid Sadiq, Google I/O 19 "Demystifying Android Accessibility development"][14]__
 
-This is probably why there is no API for focus navigation on a programmable level. While I understand their goal in curbing abuse of that system, I do not believe my goals have never been to create a hack on behalf of someone else, but rather to make the automation and developer interaction with these systems much easier and ... well ... accessible.
+This is probably why there is no API for focus navigation on a programmable level. While I understand their goal in curbing abuse of that system, I do not believe my goals have never been to create a hack on behalf of someone else, but rather to make the automation and developer interaction with these systems much easier and ... well ... accessible. What I am not sure of, however, is that there is so much code that <a href="#super-important-caveat">__looks__ like it should work</a>.
 
 ## Understanding Accessibility on Android
 
@@ -52,19 +52,20 @@ A [broadcast receiver][4] cannot exist in isolation, running all the time, it ha
 The receiver that was implemented can take intents from other apps, as well as the ADB.
 
 {% highlight bash %}
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_SWIPE_LEFT"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_SWIPE_RIGHT"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_SWIPE_UP"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_SWIPE_DOWN"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_FOCUS_ELEMENT"
-                                                                          -e PARAMETER_ID "resourceId"
-                                                                          -e PARAMETER_TEXT "some text"
-                                                                          -e PARAMETER_TYPE "element type" --e DIRECTION "[DIRECTION_FORWARD | DIRECTION_BACK]"
-                                                                          -e PARAMETER_HEADING "[DIRECTION_FORWARD | DIRECTION_BACK]"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_UP"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_DOWN"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_MUTE"
-adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_VOLUME_SET" --ei PARAMETER_VOLUME 20
+adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION
+    "ACTION_SWIPE_LEFT"
+    "ACTION_SWIPE_RIGHT"
+    "ACTION_SWIPE_UP"
+    "ACTION_SWIPE_DOWN"
+    "ACTION_FOCUS_ELEMENT"
+        -e PARAMETER_ID "resourceId"
+        -e PARAMETER_TEXT "some text"
+        -e PARAMETER_TYPE "element type" --e DIRECTION "[DIRECTION_FORWARD | DIRECTION_BACK]"
+        -e PARAMETER_HEADING "[DIRECTION_FORWARD | DIRECTION_BACK]"
+    "ACTION_VOLUME_UP"
+    "ACTION_VOLUME_DOWN"
+    "ACTION_VOLUME_MUTE"
+    "ACTION_VOLUME_SET" --ei PARAMETER_VOLUME 20
 {% endhighlight %}
 
 These are some of the commands I that I find the most tedious while working with accessibility - and I think the ability to control the volume was one of the better features. I find that the volume of the voice can sometimes be quite disruptive.
