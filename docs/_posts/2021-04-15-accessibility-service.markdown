@@ -69,12 +69,6 @@ adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_V
 
 These are some of the commands I that I find the most tedious while working with accessibility - and I think the ability to control the volume was one of the better features. I find that the volume of the voice can sometimes be quite disruptive.
 
-> #### Super important caveat!
->
-> It's important to note that I have been very specific in naming the actions. For example, ACTION_SWIPE_LEFT and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: back) seem as if they should be more closely related - in the sense that a swipe LEFT should focus the previous node in the hierarchy according to one set of granularity, and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: back) is just the "headings only" version of that granularity. This was the original intention, as it's dangerous to do a left swipe and expect to go back to the previous element, because the action associated with the gesture can be modified by the user.
->
-> There are two reasons for this: 1. I wanted to ensure developers are aware of what they are getting exactly what they ask for. 2. The accessibility team has [not made their transversal algorithm available through an API][17], and so in the default granularity, selecting the next and previous nodes would require a re-write on this side and therefore have no guarantee of one-to-one behaviour.
-
 The receiver achieves this in the following manner:
 
 {% highlight kotlin %}
@@ -107,6 +101,22 @@ There is an argument to be made for enabling the clicking of elements, however [
 POS=$(sh midOf -e "$ELEMENT") # midOf gets the node-based UI from the ADB and parses the XML
 adb -s $DEVICE shell input tap $POS
 {% endhighlight %}
+
+> #### Super important caveat!
+>
+> It's important to note that I have been very specific in naming the actions. For example, ACTION_SWIPE_LEFT and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) seem as if they should be more closely related - in the sense that a swipe LEFT should focus the previous node in the hierarchy according to one set of granularity, and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) is just the "headings only" version of that granularity. This was the original intention, as it's dangerous to do a left swipe and expect to go back to the previous element, since the action associated with the gesture can be modified by the user.
+>
+> The reasoning here is twofold: 1. I wanted to ensure developers are aware of what they are getting exactly what they ask for, and 2. the accessibility team has [not made their transversal algorithm available through an API][17], and so in the default granularity, selecting the next and previous nodes would require a re-write on this side and therefore have no guarantee of one-to-one behaviour. I have also tried the following, which simply yields a NullReferenceException:
+
+{% highlight kotlin %}
+  val currentNode = findFocus(FOCUS_ACCESSIBILITY)
+  if (currentNode != null) {
+    val nextNode = currentNode.focusSearch(FOCUS_FORWARD)
+    if (nextNode != null) { // always get a null here :(
+      nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
+    }
+  }
+{% highlight kotlin %}
 
 ### Accessibility service: Acting on behalf of the user
 
