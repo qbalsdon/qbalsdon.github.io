@@ -23,7 +23,7 @@ After a brief look into [Switch Access][12] I did find that the volume keys can 
 
 ![alt text][IMAGE_3] | ![alt text][IMAGE_4] | ![alt text][IMAGE_5] |
 
-So switch access doesn't work, the next real question is "Why didn't the talkback team give us these controls elsewhere?" Great question, I have been [scouring for a good answer to this][17]. I think it has to do with the [**ABSOLUTELY UNDENIABLE FACT THAT MANAGING FOCUS IS AN ACCESSIBILITY ANTI-PATTERN**][15] as Qasid Sadiq puts it so eloquently:
+So switch access doesn't work, the next real question is "Why didn't the TalkBack team give us these controls elsewhere?" Great question, I have been [scouring for a good answer to this][17]. I think it has to do with the [**absolutely undeniable fact that managing focus is an accessibility anti-pattern**][15] as Qasid Sadiq puts it so eloquently:
 
 > So something similar that people like to do is manage accessibility focus themselves. And again, this is a bad idea. accessibility focus has to be determined by the accessibility service, and just like announcements this creates an inconsistency in experience. And actually, that one of the biggest issues that accessibility users face, inconsistency, across applications and over time.
 >
@@ -103,21 +103,28 @@ POS=$(sh midOf -e "$ELEMENT") # midOf gets the node-based UI from the ADB and pa
 adb -s $DEVICE shell input tap $POS
 {% endhighlight %}
 
-> #### Super important caveat!
->
-> It's important to note that I have been very specific in naming the actions. For example, ACTION_SWIPE_LEFT and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) seem as if they should be more closely related - in the sense that a swipe LEFT should focus the previous node in the hierarchy according to one set of granularity, and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) is just the "headings only" version of that granularity. This was the original intention, as it's dangerous to do a left swipe and expect to go back to the previous element, since the action associated with the gesture can be modified by the user.
->
-> The reasoning here is twofold: 1. I wanted to ensure developers are aware of what they are getting exactly what they ask for, and 2. the accessibility team has [not made their transversal algorithm available through an API][17], and so in the default granularity, selecting the next and previous nodes would require a re-write on this side and therefore have no guarantee of one-to-one behaviour. I have also tried the following, which simply yields a NullReferenceException:
-
-{% highlight kotlin %}
-  val currentNode = findFocus(FOCUS_ACCESSIBILITY)
-  if (currentNode != null) {
-    val nextNode = currentNode.focusSearch(FOCUS_FORWARD)
-    if (nextNode != null) { // always get a null here :(
-      nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
-    }
-  }
+Although since the original publication I have decided to perform the action on behalf of the user:
+{% highlight bash %}
+adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_CLICK"
 {% endhighlight %}
+
+#### Super important caveat!
+
+It's important to note that I have been very specific in naming the actions. For example, ACTION_SWIPE_LEFT and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) seem as if they should be more closely related - in the sense that a swipe LEFT should focus the previous node in the hierarchy according to one set of granularity, and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) is just the "headings only" version of that granularity. This was the original intention, as it's dangerous to do a left swipe and expect to go back to the previous element, since the action associated with the gesture can be modified by the user.
+
+The reasoning here is twofold:
+  1. I wanted to ensure developers are aware of what they are getting exactly what they ask for, and
+  2. the accessibility team has [not made their transversal algorithm available through an API][17], and so in the default granularity, selecting the next and previous nodes would require a re-write on this side and therefore have no guarantee of one-to-one behaviour. I have also tried the following, which simply yields a NullReferenceException:
+
+  {% highlight kotlin %}
+    val currentNode = findFocus(FOCUS_ACCESSIBILITY)
+    if (currentNode != null) {
+      val nextNode = currentNode.focusSearch(FOCUS_FORWARD)
+      if (nextNode != null) { // always get a null here :(
+        nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
+      }
+    }
+  {% endhighlight %}
 
 ### Accessibility service: Acting on behalf of the user
 
