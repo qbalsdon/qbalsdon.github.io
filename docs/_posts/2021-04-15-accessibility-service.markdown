@@ -125,7 +125,6 @@ The reasoning here is twofold:
       }
     }
   {% endhighlight %}
-
 ### Accessibility service: Acting on behalf of the user
 
 The [Google documentation][2] defends the creation of an accessibility service in the following manner:
