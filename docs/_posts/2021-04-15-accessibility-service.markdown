@@ -194,6 +194,8 @@ adb shell settings put secure enabled_accessibility_services $VALUE_ON
 
 And there you go! This is a more granular approach to navigation of a device in accessibility mode for developers. I hope that it will help all sorts of people, as it could be used in automation testing or even remote control.
 
+![alt text][VIDEO_1]
+
 <!-- ![alt text][IMAGE_0] -->
 [IMAGE_1]: /images/accessibility_service_01.png "Settings -> [Smart Assistance] -> Accessibility"
 [IMAGE_2]: /images/accessibility_service_02.png "Settings -> [Smart Assistance] -> Accessibility -> Accessibility shortcut"
@@ -203,6 +205,13 @@ And there you go! This is a more granular approach to navigation of a device in 
 {: width="400px"}
 [IMAGE_5]: /images/accessibility_service_05.gif "Switch Access Usage"
 {: width="400px"}
+
+<!--
+![][{reference}]
+
+[{reference}]: {video-link}
+-->
+[VIDEO_1]: /videos/DEMO_01_A11y_Actions.mp4 "Video demo of the Accessibility Broadcast Developer tools"
 
 
   [1]: https://developer.android.com/guide/topics/ui/accessibility/service#focus-types
