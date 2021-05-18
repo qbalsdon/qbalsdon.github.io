@@ -194,7 +194,7 @@ adb shell settings put secure enabled_accessibility_services $VALUE_ON
 
 And there you go! This is a more granular approach to navigation of a device in accessibility mode for developers. I hope that it will help all sorts of people, as it could be used in automation testing or even remote control.
 
-<iframe width="720" height="480" src="http://www.youtube.com/embed/GV9MV0Yw38E?color=white&theme=light" frameborder="0" allowfullscreen></iframe>
+Here is a [link to the video][19] demonstrating the commands in action.
 
 <!-- ![alt text][IMAGE_0] -->
 [IMAGE_1]: /images/accessibility_service_01.png "Settings -> [Smart Assistance] -> Accessibility"
@@ -224,3 +224,4 @@ And there you go! This is a more granular approach to navigation of a device in 
   [16]: https://github.com/Genymobile/scrcpy
   [17]: https://issuetracker.google.com/issues/185546073
   [18]: https://codelabs.developers.google.com/codelabs/developing-android-a11y-service?hl=th#0
+  [19]: https://www.youtube.com/watch?v=GV9MV0Yw38E
