@@ -56,7 +56,7 @@ Ask yourself "why <i>this</i> job?" - and let that fuel the questions you are go
 Ask questions
 </button>
 <div id="section_questions" class="content">
-Asking questions is probably one of the most important things you can do as a candidate. It tells your interviewer you are interested in the conversation and the role. It's a great tool for understanding people better and showing you aren't simply a "one person show." It's also a great tool for flipping a particularly difficult question:
+Asking questions is probably one of the most important things you can do as a candidate. It tells your interviewer you are interested in the conversation and the role. It's a great tool for understanding people better and showing you aren't simply a "one person show." It's also handy for flipping a particularly difficult question:
 <br/><br/>
 <i>Q: Can you tell me about the Android Activity lifecycle?</i><br/>
 A: I know onPause, onResume, onCreate and onDestroy, I know that's not everything, but these are what I focus on in my day-to-day<br/>
