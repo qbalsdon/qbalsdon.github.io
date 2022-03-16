@@ -122,7 +122,7 @@ Feedback is a gift
 <div id="section_feedback" class="content">
 I have had the absolute privilege of being permitted to give immediate feedback in an interview. It is customary to ask the candidate first if they want it, but I find I am always on the lookout for an opportunity to praise or help someone. Positive feedback is always easy and a joy to give, the one that takes practice is the constructive feedback. Be able to point to direct scenarios that may help them, and why it contributed to the decision you made. Don't be mean, be offering them assistance, if they want it. And then, once you've delivered the news and the feedback, ask them to give you feedback.
 <br/><br/>
-Remember that if you are too nervous to tell them you will not be continuing the process to their face, still offer constructive feedback face to face. If you can't offer them a job, the least you can do is leave them with the impression that you cared about them and made use of their time. Just remember if they have a bad reaction to feedback, this can inform you a lot about what it would be like to work with them.
+Remember that if you are too nervous to tell them you will not be continuing the process while still in the interview, still offer constructive feedback face to face. If you can't offer them a job, the least you can do is leave them with the impression that you cared about them and made use of their time. Just remember if they have a bad reaction to feedback, this can inform you a lot about what it would be like to work with them.
 </div>
 
 <button type="button" class="collapsible" data-expands="section_empathy">
@@ -147,13 +147,13 @@ When introductions are too short
 <div id="section_short_introductions" class="content">
   As a candidate I find it really suspicious when interviewers don't put effort into introducing themselves or getting to know me. If introductions don't matter to you, then maybe I don't either. Or if you spend too much time on yourself, and nothing on me, I am being told my value straight away.
   <br/><br/>
-  Spend 5 minutes getting to know each other. Tell them your role and how long you have been working at the company. Show a bit of your personal side by mentioning a side hobby or project. Not only does this show that you care, but people are most comfortable talking about themselves and this can create a comfortable environment for the rest of what hopefully is a conversation.
+  Spend five minutes getting to know each other. Tell them your role and how long you have been working at the company. Show a bit of your personal side by mentioning a side hobby or project. Not only does this show that you care, but people are most comfortable talking about themselves and this can create a comfortable environment for the rest of what hopefully is a delightful conversation.
 </div>
 
-<button type="button" class="collapsible" data-expands="section_short_introductions">
+<button type="button" class="collapsible" data-expands="section_love_question">
 I'm in love with my question
 </button>
-<div id="section_short_introductions" class="content">
+<div id="section_love_question" class="content">
   I've had it on a number of occasions as a candidate (at two very well known companies) that I failed the interview shortly after the programming exercise. In both situations questions about the problem were seen as attacks on the interviewer, and that the scenario was entirely realistic and should be understood and solved in silence. This screams toxic workplace environment, and it's not worth it.
   <br/><br/>
   I find that when interviewers have a prepared answer to their code question, they cannot understand when someone else's code works but looks different to their solution. In situations where an interviewer says "I don't know why your code works" normally means they want you to conform to their echo chamber or it could just be that they aren't that experienced at interviewing. I prefer not to have an expected solution, but evaluate the candidate's for what it is.
