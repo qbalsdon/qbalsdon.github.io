@@ -161,7 +161,7 @@ I'm in love with my question
 
 ### Conclusion
 
-I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might now be at company A, B, C, or D - but keep on looking.
+I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might not be now, or at company A, B, C, or D - but keep on looking.
 
 [1]: https://en.wikipedia.org/wiki/Milgram_experiment
 [2]: https://en.wikipedia.org/wiki/SOLID
