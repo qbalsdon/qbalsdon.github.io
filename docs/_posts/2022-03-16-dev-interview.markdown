@@ -45,6 +45,15 @@ Remember to bring yourself to the interview, not someone else. What I mean by th
 
 ### As a candidate:
 
+<button type="button" class="collapsible" data-expands="section_prepare">
+Be prepared for each individual interview
+</button>
+<div id="section_prepare" class="content">
+This might sound a bit obvious at first glance, but a lot of the time candidates fail to even just go to the web site or use the app of the company with which they have an interview. Read up about them, look at their press outputs, see if they've appeared in the news recently. Develop an opinion and some questions. You cannot be more impressive than when you demonstrate applied knowledge.
+<br/><br/>
+Some companies might even provide you with an interview guide. It's <b>essential</b> that you read and understand this. If you walk into an interview without knowing anything about the company, or demonstrating that you didn't read the preparation guide, you are communicating a bad work ethic, or maybe a lack of attention to detail. Either way, you won't benefit from that behaviour.
+</div>
+
 <button type="button" class="collapsible" data-expands="section_role">
 Know what you want from the role
 </button>
@@ -64,6 +73,8 @@ A: I know onPause, onResume, onCreate and onDestroy, I know that's not everythin
 A: Oh, thanks, yeah I knew there was more - normally I would look that up on the documentation before using it anyway. Well, since you bring it up, <b>how does your app</b> use onStart and onStop? How often does the need to consider that option arise? Are developers required to know this in detail off by heart, and if so, doesn't that lead to mistakes?
 <br/><br/>
 Perhaps the flurry of questions might be bad, but you can definitely use it to open up the floor and alleviate some pressure off of yourself. I also recommend flipping complexity questions around. It's not that it's a bad question, I just happen to think that it's utility in day-to-day is fairly low, and asking a question with such potential for naval gazing gives it far too much credence in an interview.
+<br/><br/>
+The questions you ask also say a lot about the asker. Pay attention not only to the questions, but the frequency of the topic. It works both ways so pay attention to the questions you ask and the questions that are asked of you. Try not to become too "one sided."
 </div>
 
 <button type="button" class="collapsible" data-expands="section_stories">
@@ -159,12 +170,38 @@ I'm in love with my question
   I find that when interviewers have a prepared answer to their code question, they cannot understand when someone else's code works but looks different to their solution. In situations where an interviewer says "I don't know why your code works" normally means they want you to conform to their echo chamber or it could just be that they aren't that experienced at interviewing. I prefer not to have an expected solution, but evaluate the candidate's for what it is.
 </div>
 
+<button type="button" class="collapsible" data-expands="section_cover_letter">
+Cover letters
+</button>
+<div id="section_cover_letter" class="content">
+This is my biggest dislike in the interviewing "culture" - I think if a company is going to require a candidate write them a detailed, 'personalised' letter just to graced with an interview, then they should be prepared to write them a detailed and well-reasoned response in kind. It's very rare for a company to ever give detailed feedback at this stage, especially for a rejection. In my opinion it's unprofessional to expect candidates to put in the effort of writing a letter about themselves and relate it to how they meet the job requirements in some sort of school-style homework assignment and then either ghost them, or send a generic one-liner with no real justification and methods to improve.
+<br/><br/>
+I would say that the risk is not worth the reward, it is possible that companies do respond to cover letters, but my experience tends to disagree with that being commonplace.
+</div>
+
 ### Conclusion
 
 I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might not be now, or at company A, B, C, or D - but keep on looking.
+
+<button type="button" class="collapsible" data-expands="section_experience">
+My experience: candidate, interviewer and trainer
+</button>
+<div id="section_experience" class="content">
+This article is really long, and I think people who don't know me might be asking: "What makes you an expert on this topic?" While I don't necessary consider myself an expert, I do have many hours of experience in interviews.
+<br/><br/>
+I decided back in 2001 that I wanted to leave South Africa for the United Kingdom, and determined the best way to become a "stand out" candidate was to get a masters degree. This also makes it easier to get a work visa. When I graduated in 2009 I started looking for work overseas, and found it really tough. I knew nothing about immigration laws and it's was hard finding places to even consider me. It would only be the end of 2016 when my opportunity finally came through.
+<br/><br/>
+I decided on a two-pronged approach: work for local companies that had a global presence, and apply to international "well-known" companies. This lead to a <b>lot</b> of interviews on both counts. Locally, it meant I moved jobs quite a lot, because the goal was to move overseas, if the company was not working with me to achieve this goal, I felt that it was time to leave. The "problem" there is that at one point I had had 10 different jobs in 9 years!
+<br/><br/>
+On the international side, I would normally get flown into a country for a day or so after an initial video conference interview. I have had the privilege of interviewing at some very big tech companies, but never got the offer. It lead to a <b>lot</b> of reflection. For interviews, I went to the United States, Amsterdam, Finland and United Kingdom all from South Africa! The pressure was high and I would always read a book on interview techniques before arriving. The company that actually gave me the job offer to move did so after doing a
+<a href="https://en.wikipedia.org/wiki/Fizz_buzz">"Fizz buzz"</a> question verbally over the phone - which was quite a surprise.
+<br/><br/>
+At many of the jobs I have been in, I have also been tasked with conducting interviews. I started off shadowing someone, until both they and I were comfortable enough for me to take it on myself. At my current role, I am very fortunate in that I have been conducting mobile engineering interviews for 3 years across many of our international offices, and have been asked to train staff in this area on a few occasions, as well as mentoring and shadowing.
+</div>
 
 [1]: https://en.wikipedia.org/wiki/Milgram_experiment
 [2]: https://en.wikipedia.org/wiki/SOLID
 [3]: https://developer.android.com/guide/components/activities/activity-lifecycle
 [4]: https://en.wikipedia.org/wiki/Computational_complexity
 [5]: https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
+[6]: https://en.wikipedia.org/wiki/Fizz_buzz
