@@ -181,15 +181,6 @@ I'm in love with my question
   I find that when interviewers have a prepared answer to their code question, they cannot understand when someone else's code works but looks different to their solution. In situations where an interviewer says "I don't know why your code works" normally means they want you to conform to their echo chamber or it could just be that they aren't that experienced at interviewing. I prefer not to have an expected solution, but evaluate the candidate's for what it is.
 </div>
 
-<button type="button" class="collapsible" data-expands="section_cover_letter">
-Cover letters
-</button>
-<div id="section_cover_letter" class="content">
-This is my biggest dislike in the interviewing "culture" - I think if a company is going to require a candidate write them a detailed, 'personalised' letter just to graced with an interview, then they should be prepared to write them a detailed and well-reasoned response in kind. It's very rare for a company to ever give detailed feedback at this stage, especially for a rejection. In my opinion it's unprofessional to expect candidates to put in the effort of writing a letter about themselves and relate it to how they meet the job requirements in some sort of school-style homework assignment and then either ghost them, or send a generic one-liner with no real justification and methods to improve.
-<br/><br/>
-I would say that the risk is not worth the reward, it is possible that companies do respond to cover letters, but my experience tends to disagree with that being commonplace.
-</div>
-
 ### Conclusion
 
 I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might not be now, or at company A, B, C, or D - but keep on looking.
