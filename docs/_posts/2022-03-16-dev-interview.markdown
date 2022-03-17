@@ -59,6 +59,8 @@ Know what you want from the role
 </button>
 <div id="section_role" class="content">
 Ask yourself "why <i>this</i> job?" - and let that fuel the questions you are going to ask. Also start preparing the answer questions like "What specifically can I bring to the company?" and "What values are important to me in an employer?"
+<br/><br/>
+I remember for a long time I used to complain that my employers never sent me on any training. One day an interviewer called me out on that and asked me: "What are you doing to train yourself?" At first I disliked the question, but I have realised that this specific topic is worth noting: If I am not putting any effort in, how can I expect my employer to? It also speaks of my willingness to approach management with my issues, rather than just throwing a tantrum and leaving for another job, and experiencing the same problems. In terms of training, it should be a collaborative effort that benefits both employee and employer.
 </div>
 
 <button type="button" class="collapsible" data-expands="section_questions">
@@ -70,7 +72,7 @@ Asking questions is probably one of the most important things you can do as a ca
 <i>Q: Can you tell me about the Android Activity lifecycle?</i><br/>
 A: I know onPause, onResume, onCreate and onDestroy, I know that's not everything, but these are what I focus on in my day-to-day<br/>
 <i>Q: You're missing onStart and onStop</i><br/>
-A: Oh, thanks, yeah I knew there was more - normally I would look that up on the documentation before using it anyway. Well, since you bring it up, <b>how does your app</b> use onStart and onStop? How often does the need to consider that option arise? Are developers required to know this in detail off by heart, and if so, doesn't that lead to mistakes?
+A: Oh, thanks, yeah I knew there was more - normally I would look that up on the documentation before using it anyway. Well, since you bring it up, <b>how does your app</b> use onStart and onStop? How often does the need to consider that option arise? Are developers required to know this in detail off by heart, and if so, doesn't that lead to mistakes? <i>(This is a great question, because the <a href="https://developer.android.com/guide/components/activities/activity-lifecycle#onstart">official documentation</a> does not state how onStart() should be used by developers...)</i>
 <br/><br/>
 Perhaps the flurry of questions might be bad, but you can definitely use it to open up the floor and alleviate some pressure off of yourself. I also recommend flipping complexity questions around. It's not that it's a bad question, I just happen to think that it's utility in day-to-day is fairly low, and asking a question with such potential for naval gazing gives it far too much credence in an interview.
 <br/><br/>
@@ -102,6 +104,13 @@ Just remember that they might have interviewed someone else for the role with mo
 </div>
 
 ### As an interviewer:
+
+<button type="button" class="collapsible" data-expands="section_embassador">
+Take on the role of embassador
+</button>
+<div id="section_embassador" class="content">
+The candidate is going to be judging the company on you, your behaviour and the questions you ask. It's very important that you are able to represent your company in a manner that is befitting them. It's critical that the interviewer does not create unrealistic expectations or misrepresent the company. The candidate is going to be looking for honesty.
+</div>
 
 <button type="button" class="collapsible" data-expands="section_ask_open_questions">
 Every interview is personal
@@ -150,6 +159,8 @@ Changing the role after the interview
 </button>
 <div id="section_role_change" class="content">
 If a company is going to shift the goalposts or offer you another position after you have interviewed, be careful. This might be a common pattern. Phrases like "we think you can grow into this role eventually" have the distinctive aura of carrot-chasing.
+<br/><br/>
+Another example of this is when you are offered far belong your asking salary and they respond that they will increase it after a certain period. While that might be true, you need to ensure that you have a short-term mechanism for testing their commitment to fulfilling promises. And then you need to ensure you get promises in writing. Personally I find that this is far more effort than it's worth.
 </div>
 
 <button type="button" class="collapsible" data-expands="section_short_introductions">
@@ -205,3 +216,4 @@ At many of the jobs I have been in, I have also been tasked with conducting inte
 [4]: https://en.wikipedia.org/wiki/Computational_complexity
 [5]: https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)
 [6]: https://en.wikipedia.org/wiki/Fizz_buzz
+[7]: https://developer.android.com/guide/components/activities/activity-lifecycle#onstart
