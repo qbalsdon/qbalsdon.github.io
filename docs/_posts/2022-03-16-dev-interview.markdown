@@ -6,7 +6,7 @@ categories: Programming Soft Skills Interviewing
 comments_id: 17
 ---
 
-If anything can be learned from the [Milgram Experiment][1], it is that intentional behaviour is far easier if you are not under pressure. There are a few reasons developers might feel pressure when approaching an interview, as either the interviewer or the candidate. The ultimate goal of an interview, no matter what side of the table you sit, is to determine whether the company and the candidate are a match. The trick is making sure neither of you is so frantic that you end up creating a negative experience. The goal of this post is to share what I have learned as both a candidate and an interviewer, and put them side by side.
+If anything can be learned from the [Milgram Experiment][1], it is that intentional behaviour is far easier if you are not under pressure. There are a few reasons developers might feel pressure when approaching an interview, as either the interviewer or the candidate. The ultimate goal of an interview, no matter what side of the table you sit, is to determine whether the company and the candidate are a match. The trick is making sure neither of you is so frantic that you end up creating a negative experience. The purpose of this post is to share what I have learned as both a candidate and an interviewer, and put them side by side.
 
 Whenever people communicate, in whatever form, whether they are asking questions, telling a story or just explaining something, they are always giving away more than just the content. The delivery is so important and being calm enough to read the context as well as the content is something that I have only been able to learn from doing many interviews. Practicing and engaging empathetic communication is probably the greatest asset in an interview situation.
 
@@ -160,7 +160,7 @@ Changing the role after the interview
 <div id="section_role_change" class="content">
 If a company is going to shift the goalposts or offer you another position after you have interviewed, be careful. This might be a common pattern. Phrases like "we think you can grow into this role eventually" have the distinctive aura of carrot-chasing.
 <br/><br/>
-Another example of this is when you are offered far belong your asking salary and they respond that they will increase it after a certain period. While that might be true, you need to ensure that you have a short-term mechanism for testing their commitment to fulfilling promises. And then you need to ensure you get promises in writing. Personally I find that this is far more effort than it's worth.
+Another example of this is when you are offered far below your asking salary and they respond that they will increase it after a certain period. While that might be true, you need to ensure that you have a short-term mechanism for testing their commitment to fulfilling promises. And then you need to ensure you get promises in writing. Personally I find that this is far more effort than it's worth.
 </div>
 
 <button type="button" class="collapsible" data-expands="section_short_introductions">
@@ -183,7 +183,7 @@ I'm in love with my question
 
 ### Conclusion
 
-I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might not be now, or at company A, B, C, or D - but keep on looking.
+I think preparing for an interview is really difficult, because you never know exactly how it's going to go. However if you can learn to embrace the chaotic nature and harness it, you can discover powers you never knew you had. Find strength in showing vulnerability, really put effort into making sure you are comfortable with who you are, and you will find your way. It might not be now, or at company A, B, C, or D - but keep trying. And stay curious.
 
 <button type="button" class="collapsible" data-expands="section_experience">
 My experience: candidate, interviewer and trainer
