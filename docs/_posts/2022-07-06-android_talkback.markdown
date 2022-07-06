@@ -79,7 +79,7 @@ It is vital to keep in mind that while Android provides a lot of meta data and s
 >
 > Other examples of apps that are not accessibility tools are: antivirus software, automation tools, assistants, monitoring apps, cleaners, password managers, and launchers.
 
-This doesn't mean you cannot create an accessibility service for this reason, it just means you will not be permitted to distribute it via the Google Play Store. An exception to the rule is the [Android Accessibility Scanner][5], an accessibility service not intended for disabled users but rather developers who wish to check the touch target sizes and colour contrasts for the apps that they create.
+This doesn't mean you cannot create an accessibility service for this reason, it just means you will not be permitted to distribute it via the Google Play Store. Some exceptions to the rule do exist, an example is the [Android Accessibility Scanner][5], an accessibility service not intended for disabled users but rather developers who wish to check the touch target sizes and colour contrasts for the apps that they create.
 
 Accessibility services should declare that they are such services by setting the "[isAccessibilityTool][7]" flag to `true` in their manifest, because by not doing so newer versions of Android will not display a security warning notification after activation.
 
