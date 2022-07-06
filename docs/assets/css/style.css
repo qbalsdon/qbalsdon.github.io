@@ -6,7 +6,7 @@ img {
 }
 
 div {
-  text-align:justify;
+  text-align:left;
 }
 
 pre, code {
@@ -19,6 +19,22 @@ pre, code {
 
 a.light, a.social {
   color: #CFCFCF;
+}
+
+.post-content h1 {
+  font-size: 22pt;
+}
+
+.post-content h2 {
+  font-size: 20pt;
+}
+
+.post-content h3 {
+  font-size: 18pt;
+}
+
+.post-content h4 {
+  font-size: 16pt;
 }
 
 .swag {

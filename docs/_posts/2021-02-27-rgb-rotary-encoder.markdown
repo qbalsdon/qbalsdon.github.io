@@ -8,7 +8,7 @@ comments_id: 15
 
 So in my latest project I wanted to get an RGB rotary encoder for my Pico running CircuitPython. The reason for using CircuitPython is that I am creating a specific piece of hardware in which the library I cannot (or dare not) re-write. I want to make a [Human Interface Device (HID)][HUMAN_INTERFACE_DEVICE] using the [Raspberry Pi Pico][RASPBERRY_PICO] and the only solid library I can find is the one by [Adafruit][ADAFRUIT_HID]. This fundamental decision means that any hardware with which I intend to interface then requires that I use libraries in CircuitPython, or C++.
 
-[![alt text][IMAGE_STOCK_RGB_ROTARY_ENCODER]][SPARKFUN_STORE]
+[![A rotary encoder without a cap and not soldered to any board][IMAGE_STOCK_RGB_ROTARY_ENCODER]][SPARKFUN_STORE]
 
 # Getting to know the hardware
 
@@ -19,7 +19,7 @@ It's really important to read the [datasheet][RGB_ROTARY_ENCODER_DATASHEET] for 
 
 In my mind, these seemed to be the list in order from easiest to hardest... I was wrong. Having played with common **cathode** RGB led's I was left utterly confused. It took me the better part of a day to figure it out. The most annoying part is an absolute lack of a pin out. While it it seemingly obvious to others, it's not obvious to me.
 
-![alt text][IMAGE_ROTARY ENCODER]
+![The circuit diagaram for the rotary encoder. Three pins on the left have 3 labels each, the encoder label, the actual encoder letter and the pin number. The top pin is labelled "Encoder A, B, 1". The middle pin is labelled "Ground, C, 2" and the bottom pin is labelled "Encoder B, A, 3." The right side has 5 pins, also with 3 labels, the pin numbers go down from 8 until 4, the second labels are shorthand for their colours, if they are colour pins. Pin 4 is power and has a plus. Pin 6 is the SPDT switch. Pins 8, 7 and 5 are the colours red, green and blue respectively and are all marked as positive input diodes][IMAGE_ROTARY ENCODER]
 
 I know the wiring elements on the right are not necessarily part of a pinout diagram, however it was these elements of the data sheet that REALLY helped me understand that it was common **anode** as opposed common *cathode*. I based the pinout on the data sheet and other information I have found, like the [breakout board][BREAKOUT_BOARD], which allows for two types of rotary encoder.
 
@@ -31,7 +31,7 @@ The Raspberry Pico board has [three Analog to digital converters][SITE_PICO_ANAL
 
 ### Wiring
 
-![alt text][IMAGE_RGB_PINOUT]
+![A Raspberry pi pico wired to a rotary encoder. The Pico VCC pins are connected to the Rotary pin 4 as Pico's number 15, 17 and 19 pin are connected to the rotary encoders 8, 7 and 5 pins respectively. The GP pins on the Pico are 11, 13 and 14][IMAGE_RGB_PINOUT]
 
 ### Code
 
@@ -98,7 +98,7 @@ Due the RGB LED being shared anode, the switch needs to be pulled down when read
 
 ### Wiring
 
-![alt text][IMAGE_RGB_SWITCH_PINOUT]
+![A Raspberry pi pico wired to a rotary encoder. The Pico VCC pin is connected to the Rotary pin 6. The GP pin on the Pico is 15][IMAGE_RGB_SWITCH_PINOUT]
 
 ### Code
 
@@ -122,7 +122,7 @@ I had to roll my own since the ~[rotaryio library][ADAFRUIT_ROTARYIO] does not w
 
 ### Wiring
 
-![alt text][IMAGE_RGB_ROTARY_ENCODER_PINOUT]
+![A Raspberry pi pico wired to a rotary encoder. The Pico's number 8, 14 and 16 pin are connected to the rotary encoders 2, 1 and 3 pins respectively. The GP pins on the Pico are Ground, 10 and 12][IMAGE_RGB_ROTARY_ENCODER_PINOUT]
 
 ### Code
 
@@ -186,7 +186,7 @@ while True:
 
 ## Putting it all together
 
-![alt text][IMAGE_RGB_ROTARY_ENCODER_COMPLETE_PINOUT]
+![A Raspberry pi pico wired to a rotary encoder. Pin mappings are as follows: Pico 8 to Rotary 2, Pico 14 to Rotary 1, Pico 15 to Rotary 8, Pico 16 to Rotary 3, Pico 17 to Rotary 7, Pico 19 to Rotary 5, Pico 20 to Rotary 6 and Pico 36 to Rotary 4][IMAGE_RGB_ROTARY_ENCODER_COMPLETE_PINOUT]
 
 {% highlight python %}
 # ... all the previous code
@@ -228,7 +228,7 @@ def colourWheel(pos):
 
 I'll be putting these into separate classes so that the pins are variable and that it can be reused elsewhere. You can find the core project [here][GITHUB].
 
-![alt text][GIF_WITH_MY_FAT_FINGERS]
+![The actual rotatry encoder wired up to a Pico on a breadboard. The encoder is red, then flashes green and then blue. The camera comes closer as some fingers start twisting the encoder and it changes colours from green to blue. At intervals the encoder is held down and changes to a brighter blue each time.][GIF_WITH_MY_FAT_FINGERS]
 
 # Final thoughts
 

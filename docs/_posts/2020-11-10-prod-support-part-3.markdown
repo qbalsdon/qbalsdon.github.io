@@ -41,7 +41,7 @@ It may seem obvious, but reporting on a live production app is absolutely critic
  - Anonymised data: You may not be able to isolate a particular user, only a session - so remember to have anonymised session id's when a user accesses the system so that you can at least follow a journey. It's also vital to remember to maintain your own integrity when on a call out - do not take user passwords or other personal information.
  - The data you have. Remember you can only obtain information on what is logged, and problems may be occurring in areas you may not have thought of before. Being able to read in between the lines is such an important step when attempting to reproduce an issue.
 
-![alt text][SKETPLANATIONSMEASURE]
+![A yellow sticky note image with the title "You get what you measure - Richard Hamming" as the title. There is more text below that reads "We've checked all our nets and concluded there are no fish smaller than this" with a stick person drawing of two people on a dock, one a fisherman and another person with a clipboard. The fisherman is holding a net in one hand and a fish in the other. The other stick person is holding the clipboard in one hand and has the other hand thoughtfully on their chin. Text at the bottom reads: "The instrument you use affects what you see"][SKETPLANATIONSMEASURE]
 [&copy;sketchplanations][SKETCHLINK]
 
 Some of the more interesting issues I have seen:  
@@ -62,4 +62,4 @@ Keeping in touch with the team during a call out is essential, you'll be sending
 [TESTINGQUOTE]: https://twitter.com/stahnma/status/634849376343429120
 [S10HACK]: https://arstechnica.com/gadgets/2019/10/galaxy-s10-fingerprint-reader-defeated-by-screen-protectors-phone-cases/
 [SKETCHLINK]: https://sketchplanations.com/you-get-what-you-measure
-[SKETPLANATIONSMEASURE]: https://images.prismic.io/sketchplanations/391d6aec-df76-4ee9-8243-fa6bf9bab40a_SP+692+-+You+get+what+you+measure.png?w=500 "You get what you measure"
+[SKETPLANATIONSMEASURE]: https://images.prismic.io/sketchplanations/391d6aec-df76-4ee9-8243-fa6bf9bab40a_SP+692+-+You+get+what+you+measure.png?w=1246 "You get what you measure"

@@ -24,7 +24,7 @@ LinkedIn: https://www.linkedin.com/in/qbalsdon/
 description: >- # this means to ignore newlines until "baseurl:"
   This is my blog. I love coding, and I'm always learning. If the documentation
   doesn't make sense to me, or I write something cool, I'll put some of it here.
-  It's mostly Android, but a lot of IoT.
+  It's mostly Android, and a little IoT.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 minima:

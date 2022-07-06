@@ -15,13 +15,13 @@ The answer will need have three parts in order to be considered complete:
 
 [The code for this can be accessed here.][9]
 
-## tl;dr Why?
+# tl;dr Why?
 
 It could be argued that plugging in a keyboard and using the [Switch Access][12] feature to navigate with accessibility can achieve the same goal with much less effort. In most user-oriented cases that would be a fair assessment. However, as a developer / automation tester, my device is normally plugged into my computer so that I can debug the code that I am currently writing, and it becomes tedious and diminishes focus if I constantly have to be changing cables, devices etc. Additionally, I used [scrcpy][16] in order to save my phone screen (and neck) and I have come to the conclusion that touching my device should be unnecessary in order to be effective at doing my job.
 
 After a brief look into [Switch Access][12] I did find that the volume keys can navigate the app, but it does not work with `adb shell input keyevent KEYCODE_VOLUME_[DOWN | UP]` - which is unfortunate. While Google has expressly stated this option is [intended for developers][13] I found it cumbersome in that is adjusts the volume streams in addition to navigation, and not a solution as the ADB instructions are ignored.
 
-![alt text][IMAGE_3] | ![alt text][IMAGE_4] | ![alt text][IMAGE_5] |
+![The switch access screen for Google Pixel. The Back button at the top left is highlighted][IMAGE_3] | ![The switch access settings screen][IMAGE_4] | ![The switch access screen for Google Pixel. The Back button at the top left is highlighted. As the volume keys are pressed, focus is being adjusted and so is the volume at the same time][IMAGE_5] |
 
 So switch access doesn't work, the next real question is "Why didn't the TalkBack team give us these controls elsewhere?" Great question, I have been [scouring for a good answer to this][17]. I think it has to do with the [**absolutely undeniable fact that managing focus is an accessibility anti-pattern**][15] as Qasid Sadiq puts it so eloquently:
 
@@ -35,13 +35,13 @@ So switch access doesn't work, the next real question is "Why didn't the TalkBac
 
 This is probably why there is no API for focus navigation on a programmable level. While I understand their goal in curbing abuse of that system, I do not believe my goals have never been to create a hack on behalf of someone else, but rather to make the automation and developer interaction with these systems much easier and ... well ... accessible. What I am not sure of, however, is that there is so much code that <a href="#super-important-caveat">__looks__ like it should work</a>.
 
-## Understanding Accessibility on Android
+# Understanding Accessibility on Android
 
 I have come to the conclusion that there are 2 layers of input on Android. They are the "input" layer and the "accessibility" layer. When you type on the keyboard, perform swipe gestures, these actions are performed on the input layer. Some actions may get passed on to the accessibility layer, when it's enabled. However actions performed by the ADB input actions are NEVER (in my experience) passed to this layer. This would explain why `adb shell input ...` or simply recording a keyboard action and playing it back does not appear to work well with TalkBack. I have no reference for this other than the [Google documentation refers to two types of focus, namely input focus and accessbility focus][1]. It's not a far stretch, but I have no solid evidence for it.
 
 The shorter part of the answer is that this is possible to do, but it's relatively involved, which is annoying. You can't perform an accessibility action via ADB, you would have to create an [Accessibility service][2] in order to [act on behalf of an Accessibility user][3] and create a [Broadcast Receiver][4] so that it can take input via the ADB. And so I did.
 
-### Broadcast service: responding to ADB events
+## Broadcast service: responding to ADB events
 
 It's fairly simple to implement a [broadcast receiver][4]. There are two main elements upon which there are some points worth noting:
 1. How and when the service is registered
@@ -108,7 +108,7 @@ Although since the original publication I have decided to perform the action on 
 adb shell am broadcast -a com.balsdon.talkback.accessibility -e ACTION "ACTION_CLICK"
 {% endhighlight %}
 
-#### Super important caveat!
+## Super important caveat!
 
 It's important to note that I have been very specific in naming the actions. For example, ACTION_SWIPE_LEFT and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) seem as if they should be more closely related - in the sense that a swipe LEFT should focus the previous node in the hierarchy according to one set of granularity, and ACTION_FOCUS_ELEMENT(PARAMETER_HEADING: BACK) is just the "headings only" version of that granularity. This was the original intention, as it's dangerous to do a left swipe and expect to go back to the previous element, since the action associated with the gesture can be modified by the user.
 
@@ -116,16 +116,29 @@ The reasoning here is twofold:
   1. I wanted to ensure developers are aware of what they are getting exactly what they ask for, and
   2. the accessibility team has [not made their transversal algorithm available through an API][17], and so in the default granularity, selecting the next and previous nodes would require a re-write on this side and therefore have no guarantee of one-to-one behaviour. I have also tried the following, which simply yields a NullReferenceException:
 
-  {% highlight kotlin %}
-    val currentNode = findFocus(FOCUS_ACCESSIBILITY)
-    if (currentNode != null) {
-      val nextNode = currentNode.focusSearch(FOCUS_FORWARD)
-      if (nextNode != null) { // always get a null here :(
-        nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
-      }
+{% highlight kotlin %}
+  val currentNode = findFocus(FOCUS_ACCESSIBILITY)
+  if (currentNode != null) {
+    val nextNode = currentNode.focusSearch(FOCUS_FORWARD)
+    if (nextNode != null) { // always get a null here :(
+      nextNode.performAction(ACTION_ACCESSIBILITY_FOCUS)
     }
-  {% endhighlight %}
-### Accessibility service: Acting on behalf of the user
+  }
+{% endhighlight %}
+
+I may not be performing the right action on the node here, but at this juncture it's a moot point. Not only do I want to be able to move to the next and previous element, but I want to be able to define the granularity as well. I did find the way to do this, but the connection between _ and _ is completely undocumented. One would scour the [source code to find the integer values for granularity][20] and then make a copy of that class locally for use, but who has time for that?
+
+{% highlight kotlin %}
+  node.performAction(ACTION_NEXT_AT_MOVEMENT_GRANULARITY, Bundle().apply {
+    putInt(ACTION_ARGUMENT_MOVEMENT_GRANULARITY_INT, 10)
+    // 10: Headings
+    // 12: Links
+  })
+{% endhighlight %}
+
+Apart from this not working and a solution not being documented, you would still need to write your own service to perform the action.
+
+## Accessibility service: Acting on behalf of the user
 
 The [Google documentation][2] defends the creation of an accessibility service in the following manner:
 
@@ -172,7 +185,7 @@ override fun onServiceConnected() {
 
 This is enough to get the code to be registered as an Accessibility service. It will appear as such inside `Settings -> [Smart Assistance] -> Accessibility` In order to set it up as the accessibility shortcut (on my device, by pressing the VOLUME_UP and VOLUME_DOWN button for 3 seconds), follow the `Accessibility shortcut` menu and choose "Accessibility Broadcast Dev" under `Select feature` - However it is not necessary to set it up as a shortcut.
 
-![alt text][IMAGE_1] | ![alt text][IMAGE_2]
+![The accessibility screen scrolled down to where magnification is the first on the screen][IMAGE_1] | ![The accessibility shortcut screen. The shortcut is enabled and allow when screen is locked is enabled. The service selected is "Accessibility Broadcast Dev"][IMAGE_2]
 
 The last element is to enable TalkBack and the feature at the same time. In my [previous post][10] I utilised a mechanism for saving particular key presses via the memory buffer. As "fun" as this is I think it would be more reliable to make the accessibility service "stick" when I toggle it. Thankfully this is possible to do, as when an accessibility service exists on a device, more than one can be toggled at a time by delimiting them with ":". In my origin TalkBack toggle script I had:
 
@@ -225,3 +238,4 @@ Here is a [link to the video][19] demonstrating the commands in action.
   [17]: https://issuetracker.google.com/issues/185546073
   [18]: https://codelabs.developers.google.com/codelabs/developing-android-a11y-service?hl=th#0
   [19]: https://www.youtube.com/watch?v=GV9MV0Yw38E
+  [20]: https://github.com/google/talkback/blob/master/utils/src/main/java/com/google/android/accessibility/utils/input/CursorGranularity.java
