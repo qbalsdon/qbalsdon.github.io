@@ -14,7 +14,7 @@ The above experience is my first memory of dependency hell. The odd thing is, ev
 
 Enter the [adapter pattern][WIKIADAPTER]. This structure allows developers to define an interface, that when implemented, uses a specific component. This may sound a lot like a simple contract, but **knowing what you are doing** is the key element.
 
-![alt text][INTRO]
+![Architecture of a generic software program. A block called "System" has a strong dependency indicated by a solid line to another block labelled "Adapter". The adapter can then be implemented in different ways, which is indicated by dotted lines and three blocks attached, each labelled "Implementation". Two of the implementation blocks have smaller circles attached labelled "dependency"][INTRO]
 
 Sometimes the problem can be an *unknown or unavailable data source*. Projects may require tracking some sort of sensory data obtained from another system. This could be a temperature sensor out in a field, or GPS coordinates from a tracking device. Either way, when writing a system that depends on incoming data, it is tempting to start at the data source. Instead you could start by creating the interface that you expect the underlying system to implement, and then implement a rudimentary one that returns some static data.
 
