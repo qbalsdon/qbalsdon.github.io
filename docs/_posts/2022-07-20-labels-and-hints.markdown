@@ -87,7 +87,7 @@ I would argue that a lot of this can come down to visual design, but designers a
 
 ### The WCAG Guidelines that were focussed on in this article:
 
-> [1.3.1][131] [A] "The structural organization of a screen must be constructed in such a way that its information architecture makes sense to both those who see and those who hear the content."
+> [1.3.1][131] [A] "The structural organisation of a screen must be constructed in such a way that its information architecture makes sense to both those who see and those who hear the content."
 >
 > [1.3.2][132] [A] "Whatever the method of interaction, the presentation of information on the screen should always have a logical sequence."
 >
