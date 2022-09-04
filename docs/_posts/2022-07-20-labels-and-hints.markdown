@@ -54,7 +54,7 @@ The advantage of a hint is that now developers and designers feel more comfortab
 
 ## Announcement of hints and labels
 
-When using a hint and a label on a `TextView` the announcement (in English) is announced as `*hint*, Edit box for *label*`. When there is already text populated in the edit box, the announcement is `Editing, *text*, Edit box *hint* for *label*` - the `for *label*` being ignored if there is no label and the `*hint*` being ignored if there is no hint. These are mutually exclusive, the presence of one does not affect the presence of the other.
+When using a hint and a label on a `EditText` the announcement (in English) is announced as `*hint*, Edit box for *label*`. When there is already text populated in the edit box, the announcement is `Editing, *text*, Edit box *hint* for *label*` - the `for *label*` being ignored if there is no label and the `*hint*` being ignored if there is no hint. These are mutually exclusive, the presence of one does not affect the presence of the other.
 
 When used appropriately, the usage of both hints and labels can inform users in a powerful way. However not understanding them or using them inappropriately can mean that users are left confused or feeling like they are in the wrong place.
 
