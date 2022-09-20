@@ -14,6 +14,8 @@ request.onload = function() {
 
 		if ( 0 === response.length ) {
 			document.getElementById( 'no-comments-found' ).style.display = 'block';
+		} else {
+			document.getElementById( 'no-comments-found' ).innerHTML = '';
 		}
 	} else {
 		console.error( this );
@@ -28,6 +30,8 @@ function createCommentEl( response ) {
 	let userAvatar = document.createElement( 'img' );
 	userAvatar.classList.add( 'avatar' );
 	userAvatar.setAttribute( 'src', response.user.avatar_url );
+	userAvatar.setAttribute( 'width', '60em' );
+	userAvatar.style.cssText = 'display: block;border-radius: 50%;' ;
 
 	user.appendChild( userAvatar );
 
@@ -45,14 +49,36 @@ function createCommentEl( response ) {
 		commentContents.innerHTML = converter.makeHtml( response.body );
 	}
 
-	let comment = document.createElement( 'li' );
+	let comment = document.createElement( 'div' );
 	comment.setAttribute( 'data-created', response.created_at );
 	comment.setAttribute( 'data-author-avatar', response.user.avatar_url );
 	comment.setAttribute( 'data-user-url', response.user.url );
 
-	comment.appendChild( user );
-	comment.appendChild( commentContents );
-	comment.appendChild( commentLink );
+	commentData = document.createElement( 'div' );
+	commentData.appendChild( commentContents );
+	commentData.appendChild( commentLink );
+
+	postContainer = document.createElement( 'post-container' );
+  postContainer.style.cssText = 'margin: 20px 0 0 0;overflow: auto';
+
+	postThumb = document.createElement( 'div' );
+	postThumb.style.cssText = 'float: left;' ;
+	postContent = document.createElement( 'div' );
+	postContent.style.cssText = 'margin-left: 80px;' ;
+	// postTitle = document.createElement( 'h3' );
+	// postTitle.style.cssText = 'font-weight: bold;font-size: 100%;' ;
+
+  postThumb.appendChild( user );
+	// postContent.appendChild( postTitle );
+	postContent.appendChild( commentData );
+
+	postContainer.appendChild( postThumb );
+	postContainer.appendChild( postContent );
+
+	comment.appendChild( postContainer );
+	let separator = document.createElement( 'hr' )
+	separator.style.cssText = 'margin: 0 0 20px 0 ';
+	comment.appendChild( separator );
 
 	return comment;
 }
