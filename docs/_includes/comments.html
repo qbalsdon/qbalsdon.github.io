@@ -38,7 +38,7 @@ function createCommentEl( response ) {
 	let commentLink = document.createElement( 'a' );
 	commentLink.setAttribute( 'href', response.html_url );
 	commentLink.classList.add( 'comment-url' );
-	commentLink.innerHTML = '#' + response.id + ' - ' + response.created_at;
+	commentLink.innerHTML = '#' + response.id;
 
 	let commentContents = document.createElement( 'div' );
 	commentContents.classList.add( 'comment-content' );
@@ -65,11 +65,15 @@ function createCommentEl( response ) {
 	postThumb.style.cssText = 'float: left;' ;
 	postContent = document.createElement( 'div' );
 	postContent.style.cssText = 'margin-left: 80px;' ;
-	// postTitle = document.createElement( 'h3' );
-	// postTitle.style.cssText = 'font-weight: bold;font-size: 100%;' ;
+	postTitle = document.createElement( 'h3' );
+	postTitle.style.cssText = 'font-weight: bold;font-size: 100%;' ;
+
+  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  let df = new Date(response.created_at).toLocaleDateString("en-US", options)
+  postTitle.innerHTML = '' + response.user.url.replace( 'https://api.github.com/users/', '' ) + ' (' + df + ')';
 
   postThumb.appendChild( user );
-	// postContent.appendChild( postTitle );
+	postContent.appendChild( postTitle );
 	postContent.appendChild( commentData );
 
 	postContainer.appendChild( postThumb );
