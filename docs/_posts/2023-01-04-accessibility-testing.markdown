@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Android automated accessibility testing critique"
-date:   2023-01-05 00:00:00 +0000
+date:   2023-01-04 00:00:00 +0000
 categories: Accessibility, Testing, Unit tests
 comments_id: 20
 ---
@@ -20,7 +20,7 @@ Imagine, if you will, you want to test for your code. What would you do? You wou
 
 Regardless of your approach (test driven development, writing tests after the code, testing it manually) this appears reasonable. Tried. Tested. Scientific.
 
-The point of testing, as far as I have been able to gather, is all around _acceptance criteria_ and _usability_, a necessary subset of which is _accessibility_. Now, when we come to accessibility, the acceptance criteria are fairly stable. We know them from the [Web Content Accessibility Guidelines][0]. What the business needs to agree on is the level [A, AA, AAA][1] that they will support, but the guidelines themselves will not change.
+The point of testing, as far as I have been able to gather, is all around _acceptance criteria_ and _usability_, a necessary subset of which is _accessibility_. Now, when we come to accessibility, the acceptance criteria are fairly stable. We know them from the [Web Content Accessibility Guidelines][0]. What the business needs to agree on is the level ([A, AA, AAA][1]) that they will support, but the guidelines themselves will not change.
 
 ## The Google Accessibility Test Framework
 
