@@ -7,7 +7,7 @@ I am trying to make the site better, but I am fairly basic when it comes to web 
   1. Clone this repo
   2. Try to run the script "runSiteLocally.sh" and follow any instructions
      - `sudo gem install bundler:2.1.4`
-     - `bundle install` 
+     - `bundle install` from the the /docs folder
      - `bundle pack`
      - `bundle install --path vendor/cache`
 
