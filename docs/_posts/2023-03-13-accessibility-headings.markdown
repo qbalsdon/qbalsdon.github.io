@@ -28,7 +28,7 @@ In this article I am going to take a look at headings from the perspective of th
 
 ## What is a heading?
 
-In digital content, a heading is more than some easy-to-use markdown. It's become a functional marker that tools can use for specialized navigation. We can see this in action when we use headings to navigate longer web documents. In web, there are several heading levels defined, like H1, H2 and H3. Headings of a higher level should always appear under those of their lower level.
+In digital content, a heading is more than some easy-to-use markdown. It's become a functional marker that tools can use for specialized navigation. We can see this in action when we use headings to navigate longer web documents. In web, there are several heading levels defined, like H1, H2 and H3. Headings of a lower level should always appear under those of their parent (higher) level.
 
 One advantage of spending time on your headings is that you end up with well structured content. Not only from the perspective of infrastructure, but you would increase readability as well. By adding my headings as skip links in the beginning, the reader knows what they are in for. They also have an idea of the thinking behind the content and can navigate there.
 
@@ -254,7 +254,7 @@ I strongly recommend developers keep a close watch on the development of heading
 
 ### Bonus section: Headings inside a `RecyclerView`  
 
-In a recent [StackOverflow question][11], I had a great discussion with a developer on the appropriate mechanism to have headings in a `RecyclerView`. `RecyclerView`s are specifically useful to developers because they are _performant_ - they optimize the user experience by not loading all elements into a potentially long list. This makes scrolling far smoother, because the view handles the "recycling" of list elements as they are scrolled out of user view.
+In a recent [StackOverflow question][11], I had a great discussion with a developer on the appropriate mechanism to have headings in a `RecyclerView`. `RecyclerView`s are specifically useful to developers because they are _performant_. They optimize the user experience by not loading all elements into a potentially long list. This makes scrolling far smoother, because the component handles the "recycling" of list elements as they are scrolled out of user view.
 
 > When an item scrolls off the screen, `RecyclerView`s don't destroy their `view`s. Instead, `RecyclerView`s reuse the `view` for new items that have scrolled onscreen. `RecyclerView`s improve [performance and your app's responsiveness, and it reduces power consumption][12].
 
