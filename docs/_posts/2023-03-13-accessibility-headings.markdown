@@ -28,7 +28,7 @@ In this article I am going to take a look at headings from the perspective of th
 
 ## What is a heading?
 
-In digital content, a heading is more than some easy-to-use markdown. It's become a functional marker that tools can use for specialized navigation. We can see this in action when we use headings to navigate longer web documents. In web, there are several heading levels defined, like H1, H2 and H3. Headings of a lower level should always appear under those of their parent (higher) level.
+In digital content, a heading is more than some easy-to-use markdown. It's become a functional marker that tools can use for specialized navigation. We can see this in action when we use headings to navigate longer web documents. In web, there are several heading levels defined, like H1, H2 and H3. Headings of a lower level should always appear under those of their parent (higher) level. In other words, an H2 should always appear under an H1 and with other H2's, you should never have an H3 directly under an H1.
 
 One advantage of spending time on your headings is that you end up with well structured content. Not only from the perspective of infrastructure, but you would increase readability as well. By adding my headings as skip links in the beginning, the reader knows what they are in for. They also have an idea of the thinking behind the content and can navigate there.
 
@@ -120,7 +120,7 @@ However there are far more to headings than just screen reader compatibility. Vi
 
 ### Headings done right
 
-The correct way method is to mark an element as a heading. This can be done using several different methods, depending on the architectural need. There is documentation available for both [XML][4] and [Jetpack Compose][5]
+The correct way method is to mark an element as a heading. This can be done using several different methods, depending on the architectural need. There is documentation available for both [XML][4] and [Jetpack Compose][5]. It's important to note that if you support an API level less than 28, you will need to add an [if statement or have an alternate layout file][14].
 
 <button type="button" class="collapsible" data-expands="section_code_heading_xml">
 Headings (within XML)
@@ -150,7 +150,10 @@ Headings (Kotlin, with XML based layout)
 <div id="section_code_heading_kotlin" class="content">
 {% highlight kotlin %}
 // in code, preferably onCreate or onResume
-[VIEW].isAccessibilityHeading = true
+// https://developer.android.com/reference/android/view/View#setAccessibilityHeading(boolean)
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+    [VIEW].isAccessibilityHeading = true
+}
 {% endhighlight %}
 </div>
 
@@ -362,7 +365,7 @@ The resulting experience:
 [12]: https://developer.android.com/develop/ui/views/layout/recyclerview
 [13]: https://developer.android.com/guide/topics/ui/accessibility/principles#accessibility-actions
 [14]: https://developer.android.com/jetpack/compose/accessibility#define-headings
-
+[15]: https://developer.android.com/reference/android/view/View#setAccessibilityHeading(boolean)
 
 [IMAGE_TAPE_OVER_LEAK]: /images/tape_fix.jpg "That'll keep the accessibility folks quiet"
 [ANTI_PATTERN_GIF]: /images/anti_pattern.gif "Demo of views that don't function as headings, but have content descriptions"
