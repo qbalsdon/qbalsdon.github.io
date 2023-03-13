@@ -18,3 +18,7 @@ function setUpCollapsible() {
       });
     }
 }
+
+$(document).ready(function(){
+  $("img[alt='gif']").gifplayer({ label: 'Play' });
+});

@@ -19,7 +19,7 @@ It's really important to read the [datasheet][RGB_ROTARY_ENCODER_DATASHEET] for 
 
 In my mind, these seemed to be the list in order from easiest to hardest... I was wrong. Having played with common **cathode** RGB led's I was left utterly confused. It took me the better part of a day to figure it out. The most annoying part is an absolute lack of a pin out. While it it seemingly obvious to others, it's not obvious to me.
 
-![The circuit diagaram for the rotary encoder. Three pins on the left have 3 labels each, the encoder label, the actual encoder letter and the pin number. The top pin is labelled "Encoder A, B, 1". The middle pin is labelled "Ground, C, 2" and the bottom pin is labelled "Encoder B, A, 3." The right side has 5 pins, also with 3 labels, the pin numbers go down from 8 until 4, the second labels are shorthand for their colours, if they are colour pins. Pin 4 is power and has a plus. Pin 6 is the SPDT switch. Pins 8, 7 and 5 are the colours red, green and blue respectively and are all marked as positive input diodes][IMAGE_ROTARY ENCODER]
+![The circuit diagram for the rotary encoder. Three pins on the left have 3 labels each, the encoder label, the actual encoder letter and the pin number. The top pin is labelled "Encoder A, B, 1". The middle pin is labelled "Ground, C, 2" and the bottom pin is labelled "Encoder B, A, 3." The right side has 5 pins, also with 3 labels, the pin numbers go down from 8 until 4, the second labels are shorthand for their colours, if they are colour pins. Pin 4 is power and has a plus. Pin 6 is the SPDT switch. Pins 8, 7 and 5 are the colours red, green and blue respectively and are all marked as positive input diodes][IMAGE_ROTARY ENCODER]
 
 I know the wiring elements on the right are not necessarily part of a pinout diagram, however it was these elements of the data sheet that REALLY helped me understand that it was common **anode** as opposed common *cathode*. I based the pinout on the data sheet and other information I have found, like the [breakout board][BREAKOUT_BOARD], which allows for two types of rotary encoder.
 
@@ -228,7 +228,7 @@ def colourWheel(pos):
 
 I'll be putting these into separate classes so that the pins are variable and that it can be reused elsewhere. You can find the core project [here][GITHUB].
 
-![The actual rotatry encoder wired up to a Pico on a breadboard. The encoder is red, then flashes green and then blue. The camera comes closer as some fingers start twisting the encoder and it changes colours from green to blue. At intervals the encoder is held down and changes to a brighter blue each time.][GIF_WITH_MY_FAT_FINGERS]
+![The actual rotary encoder wired up to a Pico on a breadboard. The encoder is red, then flashes green and then blue. The camera comes closer as some fingers start twisting the encoder and it changes colours from green to blue. At intervals the encoder is held down and changes to a brighter blue each time.][GIF_WITH_MY_FAT_FINGERS]
 
 # Final thoughts
 
