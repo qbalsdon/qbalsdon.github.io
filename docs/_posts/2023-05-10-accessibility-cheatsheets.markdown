@@ -102,7 +102,7 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
             Switch apps<br/><img src="/images/cs_ios_15_switch_app.png" width="50%"/>Four finger swipe<br/>Horizontal swipe<br/><code>VO + SHIFT + &#91;</code>
         </td>
         <td colspan="2">
-            Use actions<br/><img src="/images/cs_ios_16_actions.png" width="55%"/>Open rotor, select action reading control, double tap<br/><code>VO + CMD + →, ↑, VO + SPACEBAR` </code>
+            Use actions<br/><img src="/images/cs_ios_16_actions.png" width="55%"/>Open rotor, select action reading control, double tap<br/><code>VO + CMD + →, ↑, VO + SPACEBAR</code>
         </td>
     </tr>
 </table>
