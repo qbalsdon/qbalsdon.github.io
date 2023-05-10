@@ -111,7 +111,7 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
 
 ## Turning on and off
 
-I want this to be brief, so that it's not an entire page. Turning off your assistive technology tools can be the most frustrating thing, so being prepared to turn it off is paramount to productivity and success. I recommend turning on, navigating a little and turning off just to try it out. Both devices offer a variety of shortcuts that borderline into the problematic when you try to document them all - discover what works best for you.
+Turning off your assistive technology tools can be the most frustrating thing, so being prepared to turn it off is paramount to productivity and success. I recommend turning on, navigating a little and turning off just to try it out. Both devices offer a variety of shortcuts that borderline into the problematic when you try to document them all - discover what works best for you.
 
 ### Android
 
