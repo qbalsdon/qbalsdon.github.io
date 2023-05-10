@@ -3,7 +3,7 @@ layout: post
 title:  "Android Headings"
 date:   2023-03-13 00:00:00 +0000
 categories: Accessibility, Testing, Unit tests, Heading
-comments_id: 20
+comments_id: 22
 ---
 
 Let’s have a look at the headings in this post as an ordered list. By  listing them out it helps me create a logical flow to the post. Also, it gives the  reader an understanding of the progression. And by creating links  it’s far easier to navigate.
