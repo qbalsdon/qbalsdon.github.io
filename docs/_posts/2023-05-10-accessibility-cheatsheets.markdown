@@ -115,6 +115,8 @@ Turning off your assistive technology tools can be the most frustrating thing, s
 
 ### Android
 
+The most default mechanism folks use to turn TalkBack on and off is the "Double volume key shortcut" - you can set it up that pressing and holding both volume keys can activate and deactivate TalkBack.
+
 #### Off
 
 {% highlight bash %}
@@ -153,6 +155,8 @@ adb shell settings put secure enabled_accessibility_services "com.samsung.androi
 </div>
 
 ### iOS
+
+The most common shortcut for turning VoiceOver on in iOS is to use the triple tap the home (or side) button.
 
 #### On and off
 > Open settings 
