@@ -32,11 +32,11 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
         </td>
         <td>Previous element<br/><img src="/images/cs_an_02_previous.png" width="50%"/>Single finger swipe<br/>right to left<br/><code>ALT + ←</code>
         </td>
-        <td>Tap or activate<br/><img src="/images/cs_an_03_activate.png" width="50%"/>Single finger swipe<br/>double tap<br/><code>ALT + ENTER</code>
+        <td>Tap or activate<br/><img src="/images/cs_an_03_activate.png" width="50%"/>Single finger<br/>double tap<br/><code>ALT + ENTER</code>
         </td>
     </tr>
     <tr>
-        <td>Scroll down<br/><img src="/images/cs_an_04_scroll_down.png" width="50%"/>Two finger swipe<br/>lower to hight<br/><code>↓</code>
+        <td>Scroll down<br/><img src="/images/cs_an_04_scroll_down.png" width="50%"/>Two finger swipe<br/>lower to higher<br/><code>↓</code>
         </td>
         <td>Scroll up<br/><img src="/images/cs_an_05_scroll_up.png" width="50%"/>Two finger swipe<br/>higher to lower<br/><code>↑</code>
         </td>
@@ -83,7 +83,7 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
             Next reading control<br/><img src="/images/cs_an_07_granularity_next.png" width="50%"/>Single finger swipe<br/>higher to lower<br/><code>↓</code>
         </td>
         <td>
-            Previous reading control<br/><img src="/images/cs_an_08_granularity_previous.png" width="50%"/>Single finger swipe<br/>lower to hight<br/><code>↑</code>
+            Previous reading control<br/><img src="/images/cs_an_08_granularity_previous.png" width="50%"/>Single finger swipe<br/>lower to higher<br/><code>↑</code>
         </td>
     </tr>
     <tr>
@@ -91,7 +91,7 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
             Back<br/><img src="/images/cs_ios_13_back.png" width="50%"/>Two finger swipe<br/>"Z" shape<br/><code>ESCAPE</code>
         </td>
         <td>
-            Scroll down<br/><img src="/images/cs_ios_11_scroll_down.png" width="50%"/>Three finger swipe<br/>lower to hight<br/><code>OPTION + ↓</code>
+            Scroll down<br/><img src="/images/cs_ios_11_scroll_down.png" width="50%"/>Three finger swipe<br/>lower to higher<br/><code>OPTION + ↓</code>
         </td>
         <td>
             Scroll up<br/><img src="/images/cs_ios_12_scroll_up.png" width="50%"/>Three finger swipe<br/>higher to lower<br/><code>OPTION + ↑</code>
