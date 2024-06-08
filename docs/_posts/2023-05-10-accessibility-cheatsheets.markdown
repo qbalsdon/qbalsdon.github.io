@@ -22,9 +22,6 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
 ## Cheat sheets
 
 ### Android
-
-[Download the Android Cheat Sheet][3]
-
 <table style="text-align: center;">
     <tr><td colspan="3"><b>GESTURES</b></td></tr>
     <tr>
@@ -59,17 +56,14 @@ And it got me thinking, "~~How~~ do developers use TalkBack?" I have to admit le
 </table>
 
 ### iOS
-
-[Download the iOS Cheat Sheet][4]
-
 <table style="text-align: center;">
     <tr><td colspan="3"><b>GESTURES</b></td></tr>
     <tr>
         <td>
-            Next element<br/><img src="/images/cs_an_01_next.png" width="50%"/>Single finger swipe<br/>left to right<br/><code>→</code>
+            Next element<br/><img src="/images/cs_an_01_next.png" width="50%"/>Single finger swipe<br/>left to right<br/><code>VO + →</code>
         </td>
         <td>
-            Previous element<br/><img src="/images/cs_an_02_previous.png" width="50%"/>Single finger swipe<br/>right to left<br/><code>←</code>
+            Previous element<br/><img src="/images/cs_an_02_previous.png" width="50%"/>Single finger swipe<br/>right to left<br/><code>VO + ←</code>
         </td>
         <td>
             Tap or activate<br/><img src="/images/cs_an_03_activate.png" width="50%"/>Single finger<br/>double tap<br/><code>VO + SPACEBAR</code>
@@ -209,5 +203,3 @@ These cheat sheets are by no means exhaustive. Screen readers are complicated an
 [0]: https://youtu.be/7KlwcAY_hRg
 [1]: https://youtu.be/7KlwcAY_hRg?t=358
 [2]: https://youtu.be/7KlwcAY_hRg?t=850
-[3]: /resources/talkback_cheatsheet.pdf
-[4]: /resources/voiceover_cheatsheet.pdf
